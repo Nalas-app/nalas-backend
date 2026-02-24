@@ -1,0 +1,408 @@
+openapi: 3.0.0
+info:
+  title: Magilam Foods API
+  description: Backend API for Magilam Foods application (Orders, Stock, Billing, Menu, ML-Costing)
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local Development Server
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+
+security:
+  - bearerAuth: []
+
+paths:
+  # --- AUTH ---
+  /auth/register:
+    post:
+      tags: [Auth]
+      security: []
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, phone, fullName]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+                phone:
+                  type: string
+                fullName:
+                  type: string
+      responses:
+        201:
+          description: User registered successfully
+        400:
+          description: Validation error
+        409:
+          description: Email/Phone already exists
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      security: []
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                      user:
+                        type: object
+
+  # --- ORDERS ---
+  /orders:
+    post:
+      tags: [Orders]
+      summary: Create a new draft order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [event_date, event_time, guest_count, order_items]
+              properties:
+                event_date:
+                  type: string
+                  format: date
+                event_time:
+                  type: string
+                guest_count:
+                  type: integer
+                venue_address:
+                  type: string
+                order_items:
+                  type: array
+                  items:
+                    type: object
+                    required: [menu_item_id, quantity]
+                    properties:
+                      menu_item_id:
+                        type: string
+                        format: uuid
+                      quantity:
+                        type: number
+      responses:
+        201:
+          description: Order created
+    get:
+      tags: [Orders]
+      summary: List orders (Admin/Manager)
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        200:
+          description: List of orders
+
+  /orders/{id}:
+    get:
+      tags: [Orders]
+      summary: Get order details
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Order details
+    put:
+      tags: [Orders]
+      summary: Update draft order
+      responses:
+        200:
+          description: Order updated
+    delete:
+      tags: [Orders]
+      summary: Delete draft order
+      responses:
+        200:
+          description: Order deleted
+
+  /orders/{id}/status:
+    put:
+      tags: [Orders]
+      summary: Update order status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status:
+                  type: string
+                  enum: [quoted, confirmed, preparing, completed, cancelled]
+      responses:
+        200:
+          description: Status updated
+
+  /orders/my-orders:
+    get:
+      tags: [Orders]
+      summary: Get current user's orders
+      responses:
+        200:
+          description: User's orders
+
+  # --- STOCK ---
+  /stock/ingredients:
+    get:
+      tags: [Stock]
+      summary: List ingredients
+      responses:
+        200:
+          description: List of ingredients
+    post:
+      tags: [Stock]
+      summary: Create ingredient
+      responses:
+        201:
+          description: Ingredient created
+
+  /stock/ingredients/{id}:
+    get:
+      tags: [Stock]
+      summary: Get ingredient details
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Ingredient details
+    put:
+      tags: [Stock]
+      summary: Update ingredient
+      responses:
+        200:
+          description: Ingredient updated
+    delete:
+      tags: [Stock]
+      summary: Delete ingredient
+      responses:
+        200:
+          description: Ingredient deleted
+
+  /stock/transactions:
+    post:
+      tags: [Stock]
+      summary: Record stock transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ingredient_id, transaction_type, quantity]
+              properties:
+                ingredient_id:
+                  type: string
+                transaction_type:
+                  type: string
+                  enum: [purchase, consumption, wastage, adjustment]
+                quantity:
+                  type: number
+      responses:
+        201:
+          description: Transaction recorded
+
+  /stock/current:
+    get:
+      tags: [Stock]
+      summary: List current stock levels
+      responses:
+        200:
+          description: Stock levels
+
+  /stock/alerts/procurement:
+    get:
+      tags: [Stock]
+      summary: Get low stock alerts
+      responses:
+        200:
+          description: Low stock alerts
+
+  /stock/reserve/{id}:
+    post:
+      tags: [Stock]
+      summary: Reserve stock for order
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Order ID
+          schema:
+            type: string
+      responses:
+        200:
+          description: Stock reserved
+
+  # --- MENU ---
+  /menu/categories:
+    get:
+      tags: [Menu]
+      summary: List menu categories
+      responses:
+        200:
+          description: Categories list
+    post:
+      tags: [Menu]
+      summary: Create category
+      responses:
+        201:
+          description: Category created
+
+  /menu/items:
+    get:
+      tags: [Menu]
+      summary: List menu items
+      responses:
+        200:
+          description: Menu items list
+    post:
+      tags: [Menu]
+      summary: Create menu item
+      responses:
+        201:
+          description: Menu item created
+
+  /menu/items/{id}/recipe:
+    get:
+      tags: [Menu]
+      summary: Get recipe for menu item
+      responses:
+        200:
+          description: Recipe details
+
+  # --- BILLING ---
+  /billing/quotations:
+    post:
+      tags: [Billing]
+      summary: Generate quotation
+      responses:
+        201:
+          description: Quotation generated
+    get:
+      tags: [Billing]
+      summary: List quotations
+      responses:
+        200:
+          description: List of quotations
+
+  /billing/invoices:
+    post:
+      tags: [Billing]
+      summary: Create invoice from order
+      responses:
+        201:
+          description: Invoice created
+    get:
+      tags: [Billing]
+      summary: List invoices
+      responses:
+        200:
+          description: List of invoices
+
+  /billing/payments:
+    post:
+      tags: [Billing]
+      summary: Record payment
+      responses:
+        201:
+          description: Payment recorded
+
+  # --- ML COSTING ---
+  /ml-costing/predictions:
+    post:
+      tags: [ML-Costing]
+      summary: Create cost prediction
+      responses:
+        201:
+          description: Prediction created
+    get:
+      tags: [ML-Costing]
+      summary: List predictions
+      responses:
+        200:
+          description: List of predictions
+
+  /ml-costing/analytics:
+    get:
+      tags: [ML-Costing]
+      summary: Get cost analytics
+      responses:
+        200:
+          description: Analytics data
