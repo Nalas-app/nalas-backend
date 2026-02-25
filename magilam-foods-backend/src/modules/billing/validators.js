@@ -35,10 +35,19 @@ const querySchema = Joi.object({
   limit: Joi.number().min(1).max(100).default(10)
 });
 
+const processRefundSchema = Joi.object({
+  invoice_id: Joi.string().uuid().required(),
+  amount: Joi.number().min(0.01).required(),
+  payment_method: Joi.string().valid('cash', 'card', 'bank_transfer', 'check', 'upi').default('bank_transfer'),
+  transaction_id: Joi.string().allow(''),
+  reason: Joi.string().required()
+});
+
 module.exports = {
   createQuotationSchema,
   createInvoiceSchema,
   createPaymentSchema,
   updateInvoiceStatusSchema,
+  processRefundSchema,
   querySchema
 };

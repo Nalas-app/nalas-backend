@@ -3,6 +3,7 @@ const billingRepository = require('./repository');
 const orderRepository = require('../orders/repository');
 const menuRepository = require('../menu/repository');
 const stockRepository = require('../stock/repository');
+const logger = require('../../shared/utils/logger');
 
 class BillingService {
   // Calculate ingredient cost for an order
@@ -263,6 +264,57 @@ class BillingService {
       transaction_id: p.transaction_id,
       payment_date: p.payment_date
     }));
+  }
+
+  // ===== REFUNDS =====
+  async processRefund(data, userId) {
+    const invoice = await billingRepository.findInvoiceById(data.invoice_id);
+
+    if (!invoice) {
+      throw AppError.notFound('Invoice');
+    }
+
+    const paidAmount = Number(invoice.paid_amount || 0);
+    const refundAmount = Number(data.amount);
+
+    if (paidAmount <= 0) {
+      throw AppError.badRequest('No payments recorded on this invoice to refund');
+    }
+
+    if (refundAmount > paidAmount) {
+      throw AppError.badRequest(
+        `Refund amount (${refundAmount}) exceeds total paid (${paidAmount})`,
+        { paid_amount: paidAmount, requested_refund: refundAmount }
+      );
+    }
+
+    // Create refund record as a negative payment
+    const refund = await billingRepository.createPayment({
+      invoice_id: data.invoice_id,
+      payment_method: data.payment_method || 'bank_transfer',
+      amount: -refundAmount,
+      transaction_id: data.transaction_id || `REFUND-${Date.now()}`,
+      created_by: userId
+    });
+
+    // Update invoice paid amount
+    const newPaidAmount = Math.max(0, paidAmount - refundAmount);
+    const updatedInvoice = await billingRepository.updateInvoicePaidAmount(
+      data.invoice_id,
+      newPaidAmount
+    );
+
+    logger.info(`Refund of ${refundAmount} processed for invoice ${data.invoice_id} by user ${userId}`);
+
+    return {
+      refund_id: refund.id,
+      invoice_id: data.invoice_id,
+      refund_amount: refundAmount,
+      reason: data.reason || 'Order cancellation',
+      invoice_status: updatedInvoice.payment_status,
+      remaining_paid: newPaidAmount,
+      refunded_at: refund.payment_date
+    };
   }
 }
 

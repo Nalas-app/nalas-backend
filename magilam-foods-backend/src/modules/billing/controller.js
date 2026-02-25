@@ -131,6 +131,21 @@ class BillingController {
       next(error);
     }
   }
+
+  // ===== REFUNDS =====
+  async processRefund(req, res, next) {
+    try {
+      const result = await billingService.processRefund(req.body, req.user.id);
+
+      res.json({
+        success: true,
+        message: 'Refund processed successfully',
+        data: result
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new BillingController();

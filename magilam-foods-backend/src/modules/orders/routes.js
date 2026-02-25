@@ -52,6 +52,22 @@ router.put(
   orderController.update
 );
 
+// Generate quotation for an order (admin only)
+router.post(
+  '/:id/quotation',
+  authenticate,
+  requireRole('admin', 'super_admin'),
+  orderController.generateQuotation
+);
+
+// Confirm an order (admin only) — reserves stock + creates invoice
+router.post(
+  '/:id/confirm',
+  authenticate,
+  requireRole('admin', 'super_admin'),
+  orderController.confirmOrder
+);
+
 // Update order status
 router.put(
   '/:id/status',

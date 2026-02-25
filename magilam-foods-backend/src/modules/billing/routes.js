@@ -7,6 +7,7 @@ const {
   createQuotationSchema,
   createInvoiceSchema,
   createPaymentSchema,
+  processRefundSchema,
   querySchema
 } = require('./validators');
 
@@ -76,6 +77,16 @@ router.get(
   '/invoices/:id/payments',
   authenticate,
   billingController.getPayments
+);
+
+// ===== REFUNDS =====
+// Process a refund (admin only)
+router.post(
+  '/payments/refund',
+  authenticate,
+  requireRole('admin', 'super_admin'),
+  validate(processRefundSchema),
+  billingController.processRefund
 );
 
 module.exports = router;
