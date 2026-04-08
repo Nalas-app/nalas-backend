@@ -133,18 +133,13 @@ class StockService {
       newAvailableQty -= quantity;
     } else if (data.transaction_type === 'adjustment') {
       newAvailableQty = quantity; // Set to exact quantity
-    let newAvailableQty = currentStock.available_quantity;
-
-    // Update stock based on transaction type
-    if (data.transaction_type === 'purchase') {
-      newAvailableQty += data.quantity;
-    } else if (data.transaction_type === 'consumption' || data.transaction_type === 'wastage') {
-      if (currentStock.available_quantity < data.quantity) {
-        throw AppError.badRequest('Insufficient stock for this transaction');
-      }
-      newAvailableQty -= data.quantity;
-    } else if (data.transaction_type === 'adjustment') {
-      newAvailableQty = data.quantity; // Set to exact quantity
+      // If adjustment, we likely want to record the actual difference as the transaction quantity for accounting
+      const difference = quantity - Number(currentStock.available_quantity);
+      data.quantity = difference;
+      
+      // Auto append adjustment log details to notes
+      const logMsg = `Adjustment Log: Changed from ${currentStock.available_quantity} to ${quantity} (Diff: ${difference > 0 ? '+' : ''}${difference}).`;
+      data.notes = data.notes ? `${data.notes} | ${logMsg}` : logMsg;
     }
 
     // Create transaction record
