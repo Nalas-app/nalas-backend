@@ -38,9 +38,9 @@ async function validateStockData() {
     `);
 
     if (stockDiscrepancies.rows.length > 0) {
-      logger.warn(\`Found \${stockDiscrepancies.rows.length} stock discrepancies:\`);
+      logger.warn(`Found ${stockDiscrepancies.rows.length} stock discrepancies:`);
       stockDiscrepancies.rows.forEach(row => {
-        logger.warn(\`- \${row.name} (ID: \${row.id}): has \${row.available_quantity}, but transactions sum to \${row.expected_quantity}\`);
+        logger.warn(`- ${row.name} (ID: ${row.id}): has ${row.available_quantity}, but transactions sum to ${row.expected_quantity}`);
       });
     } else {
       logger.info('All stock quantities match transaction history.');
@@ -54,11 +54,16 @@ async function validateStockData() {
   } catch (error) {
     await client.query('ROLLBACK');
     logger.error('Error during data validation:', error);
-    process.exit(1);
+    if (require.main === module) process.exit(1);
+    throw error;
   } finally {
     client.release();
-    process.exit(0);
+    if (require.main === module) process.exit(0);
   }
 }
 
-validateStockData();
+if (require.main === module) {
+  validateStockData();
+}
+
+module.exports = { validateStockData };
