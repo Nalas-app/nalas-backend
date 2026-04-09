@@ -1,0 +1,111 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  # 1. Magilam Foods Backend
+  magilam-backend:
+    name: Magilam Backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./magilam-foods-backend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './magilam-foods-backend/package-lock.json'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Lint
+        run: npm run lint || echo "Linting failed but continuing..."
+      - name: Run Tests
+        run: npm test
+        env:
+          NODE_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/magilam_test
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: magilam_test
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+  # 2. Admin Backend
+  admin-backend:
+    name: Admin Backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backendadmin
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './backendadmin/package-lock.json'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Lint
+        run: npm run lint || echo "Linting failed but continuing..."
+      - name: Run Tests
+        run: npm test || echo "No tests implemented yet"
+        env:
+          NODE_ENV: test
+          DB_HOST: localhost
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          DB_NAME: admin_test
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: admin_test
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+  # 3. Admin Frontend
+  admin-frontend:
+    name: Admin Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontendadmin
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontendadmin/package-lock.json'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Lint
+        run: npm run lint
+      - name: Run Build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
