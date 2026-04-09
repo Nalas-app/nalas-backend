@@ -31,7 +31,6 @@ const createTransactionSchema = Joi.object({
 });
 
 const reserveStockSchema = Joi.object({
-  quantity: Joi.number().min(0).required()
   ingredient_id: Joi.string().uuid().required(),
   quantity: Joi.number().min(0).required(),
   order_id: Joi.string().uuid().required()
@@ -56,5 +55,4 @@ module.exports = {
   reserveStockSchema,
   querySchema,
   procurementAlertsQuerySchema
-  querySchema
 };
