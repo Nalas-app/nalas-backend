@@ -144,7 +144,6 @@ class StockController {
     try {
       const result = await stockService.getProcurementAlerts(req.query);
       const summary = stockService.getProcurementAlertsSummary(result);
-      const result = await stockService.getProcurementAlerts();
 
       res.json({
         success: true,
@@ -152,7 +151,6 @@ class StockController {
         data: result,
         count: result.length,
         summary
-        count: result.length
       });
     } catch (error) {
       next(error);
