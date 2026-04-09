@@ -4,6 +4,7 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const { errorMiddleware } = require('./middlewares/error.middleware');
 const logger = require('./shared/utils/logger');
+const { initCronJobs } = require('./shared/jobs/scheduler');
 require('dotenv').config();
 
 const app = express();
@@ -66,6 +67,7 @@ app.use(errorMiddleware);
 const PORT = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV !== 'test') {
+  initCronJobs();
   app.listen(PORT, () => {
     logger.info(`Server running on port ${PORT}`);
   });
