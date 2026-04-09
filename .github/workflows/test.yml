@@ -2,9 +2,9 @@ name: Backend CI
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop", "feat/final-integrated-fixes" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop", "feat/final-integrated-fixes" ]
 
 jobs:
   test:
@@ -33,7 +33,15 @@ jobs:
       with:
         node-version: '20.x'
         cache: 'npm'
-        
+
+    - name: Cache Puppeteer Chrome
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/puppeteer
+        key: ${{ runner.os }}-puppeteer-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-puppeteer-
+
     - name: Install dependencies
       run: npm ci
       
