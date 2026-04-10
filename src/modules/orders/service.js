@@ -401,7 +401,6 @@ class OrderService {
   }
 
   async updateOrderStatus(orderId, newStatus, userId = null) {
-  async updateOrderStatus(orderId, newStatus) {
     const order = await orderRepository.findOrderById(orderId);
 
     if (!order) {
@@ -473,18 +472,6 @@ class OrderService {
       id: updatedOrder.id,
       status: updatedOrder.status,
       previous_status: order.status,
-    if (!validTransitions[order.status].includes(newStatus)) {
-      throw AppError.badRequest(
-        `Cannot transition from ${order.status} to ${newStatus}`,
-        { current_status: order.status, requested_status: newStatus }
-      );
-    }
-
-    const updatedOrder = await orderRepository.updateOrderStatus(orderId, newStatus);
-
-    return {
-      id: updatedOrder.id,
-      status: updatedOrder.status,
       updated_at: updatedOrder.updated_at
     };
   }

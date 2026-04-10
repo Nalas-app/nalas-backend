@@ -10,7 +10,6 @@ const {
   reserveStockSchema,
   querySchema,
   procurementAlertsQuerySchema
-  querySchema
 } = require('./validators');
 
 const router = express.Router();
