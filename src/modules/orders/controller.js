@@ -75,7 +75,6 @@ class OrderController {
         req.body.status,
         req.user?.id || null
       );
-      const result = await orderService.updateOrderStatus(req.params.id, req.body.status);
 
       res.json({
         success: true,

@@ -44,10 +44,15 @@ const querySchema = Joi.object({
   sortBy: Joi.string().default('created_at')
 });
 
+const procurementAlertsQuerySchema = Joi.object({
+  severity: Joi.string().valid('LOW', 'CRITICAL')
+});
+
 module.exports = {
   createIngredientSchema,
   updateIngredientSchema,
   createTransactionSchema,
   reserveStockSchema,
-  querySchema
+  querySchema,
+  procurementAlertsQuerySchema
 };

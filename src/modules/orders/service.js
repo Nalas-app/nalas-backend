@@ -2,6 +2,7 @@ const AppError = require('../../shared/errors/AppError');
 const orderRepository = require('./repository');
 const billingService = require('../billing/service');
 const stockService = require('../stock/service');
+const stockIntegration = require('./integrations/stock.integration');
 const menuRepository = require('../menu/repository');
 const logger = require('../../shared/utils/logger');
 
@@ -222,31 +223,18 @@ class OrderService {
     }
 
     // Reserve stock for all ingredients (all-or-nothing)
-    const reservedIngredients = [];
+    let reservedIngredients = [];
     try {
-      for (const [ingredientId, need] of Object.entries(ingredientNeeds)) {
-        const result = await stockService.reserveStock(ingredientId, need.quantity);
-        reservedIngredients.push({
-          ingredient_id: ingredientId,
-          quantity: need.quantity
-        });
-
+      reservedIngredients = await stockIntegration.reserveStockForOrder(orderId, ingredientNeeds);
+      
+      for (const reserved of reservedIngredients) {
         // Save reservation record for future release
-        await orderRepository.saveStockReservation(orderId, ingredientId, need.quantity);
+        await orderRepository.saveStockReservation(orderId, reserved.ingredient_id, reserved.quantity);
       }
     } catch (stockError) {
-      // Rollback: release any already-reserved stock
-      for (const reserved of reservedIngredients) {
-        try {
-          await stockService.releaseReservedStock(reserved.ingredient_id, reserved.quantity);
-        } catch (rollbackError) {
-          logger.error(
-            `CRITICAL: Failed to rollback stock reservation for ingredient ${reserved.ingredient_id}:`,
-            rollbackError.message
-          );
-        }
-      }
-      // Clean up reservation records
+      // Note: rollback of external stock service is handled inside reserveStockForOrder
+
+      // Clean up local DB reservation records if any were saved partially
       try {
         await orderRepository.deleteStockReservations(orderId);
       } catch (cleanupError) {
@@ -270,16 +258,7 @@ class OrderService {
       // Compensating transaction: release all reserved stock
       logger.error('Invoice creation failed, rolling back stock reservations:', invoiceError.message);
 
-      for (const reserved of reservedIngredients) {
-        try {
-          await stockService.releaseReservedStock(reserved.ingredient_id, reserved.quantity);
-        } catch (rollbackError) {
-          logger.error(
-            `CRITICAL: Failed to rollback stock for ingredient ${reserved.ingredient_id}:`,
-            rollbackError.message
-          );
-        }
-      }
+      await stockIntegration.releaseStockForOrder(orderId, reservedIngredients);
       await orderRepository.deleteStockReservations(orderId);
 
       throw AppError.internal('Order confirmation failed: could not generate invoice');
@@ -401,7 +380,6 @@ class OrderService {
   }
 
   async updateOrderStatus(orderId, newStatus, userId = null) {
-  async updateOrderStatus(orderId, newStatus) {
     const order = await orderRepository.findOrderById(orderId);
 
     if (!order) {
@@ -435,20 +413,7 @@ class OrderService {
     if (newStatus === 'cancelled' && ['confirmed', 'preparing'].includes(order.status)) {
       try {
         const reservations = await orderRepository.getStockReservations(orderId);
-        for (const reservation of reservations) {
-          try {
-            await stockService.releaseReservedStock(
-              reservation.ingredient_id,
-              Number(reservation.reserved_quantity)
-            );
-          } catch (releaseError) {
-            logger.error(
-              `Failed to release stock for ingredient ${reservation.ingredient_id} on order ${orderId}:`,
-              releaseError.message
-            );
-            // Continue releasing other ingredients; don't block cancellation
-          }
-        }
+        await stockIntegration.releaseStockForOrder(orderId, reservations);
         await orderRepository.deleteStockReservations(orderId);
       } catch (err) {
         logger.error(`Stock release failed during cancellation of order ${orderId}:`, err.message);
@@ -473,18 +438,6 @@ class OrderService {
       id: updatedOrder.id,
       status: updatedOrder.status,
       previous_status: order.status,
-    if (!validTransitions[order.status].includes(newStatus)) {
-      throw AppError.badRequest(
-        `Cannot transition from ${order.status} to ${newStatus}`,
-        { current_status: order.status, requested_status: newStatus }
-      );
-    }
-
-    const updatedOrder = await orderRepository.updateOrderStatus(orderId, newStatus);
-
-    return {
-      id: updatedOrder.id,
-      status: updatedOrder.status,
       updated_at: updatedOrder.updated_at
     };
   }

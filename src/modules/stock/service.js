@@ -120,18 +120,19 @@ class StockService {
       throw AppError.internal('Stock not initialized for ingredient');
     }
 
-    let newAvailableQty = currentStock.available_quantity;
+    let newAvailableQty = Number(currentStock.available_quantity);
+    const quantity = Number(data.quantity);
 
     // Update stock based on transaction type
     if (data.transaction_type === 'purchase') {
-      newAvailableQty += data.quantity;
+      newAvailableQty += quantity;
     } else if (data.transaction_type === 'consumption' || data.transaction_type === 'wastage') {
-      if (currentStock.available_quantity < data.quantity) {
+      if (Number(currentStock.available_quantity) < quantity) {
         throw AppError.badRequest('Insufficient stock for this transaction');
       }
-      newAvailableQty -= data.quantity;
+      newAvailableQty -= quantity;
     } else if (data.transaction_type === 'adjustment') {
-      newAvailableQty = data.quantity; // Set to exact quantity
+      newAvailableQty = quantity; // Set to exact quantity
     }
 
     // Create transaction record
@@ -211,17 +212,40 @@ class StockService {
     }));
   }
 
-  async getProcurementAlerts() {
+  async getProcurementAlerts(filters = {}) {
     const alerts = await stockRepository.getProcurementAlerts();
 
-    return alerts.map(a => ({
-      ingredient_id: a.id,
-      ingredient_name: a.name,
-      current_level: a.available_quantity || 0,
-      reorder_level: a.reorder_level,
-      unit: a.unit,
-      status: (a.available_quantity || 0) <= (a.reorder_level || 0) ? 'LOW' : 'CRITICAL'
-    }));
+    const normalizedAlerts = alerts.map(a => {
+      const currentLevel = Number(a.available_quantity || 0);
+      const reorderLevel = Number(a.reorder_level || 0);
+      const status = currentLevel <= reorderLevel * 0.5 ? 'CRITICAL' : 'LOW';
+
+      return {
+        ingredient_id: a.id,
+        ingredient_name: a.name,
+        current_level: currentLevel,
+        reorder_level: reorderLevel,
+        unit: a.unit,
+        status
+      };
+    });
+
+    if (filters.severity) {
+      return normalizedAlerts.filter(alert => alert.status === filters.severity);
+    }
+
+    return normalizedAlerts;
+  }
+
+  getProcurementAlertsSummary(alerts) {
+    const critical = alerts.filter(alert => alert.status === 'CRITICAL').length;
+    const low = alerts.filter(alert => alert.status === 'LOW').length;
+
+    return {
+      total: alerts.length,
+      critical,
+      low
+    };
   }
 
   // ===== STOCK RESERVATION (for orders) =====
@@ -257,7 +281,7 @@ class StockService {
     }
 
     try {
-      const updated = await stockRepository.consumeStock(ingredientId, quantity);
+      const updated = await stockRepository.releaseReservedStock(ingredientId, quantity);
 
       return {
         ingredient_id: ingredientId,
@@ -266,6 +290,9 @@ class StockService {
         available_quantity: updated.available_quantity
       };
     } catch (error) {
+      if (error.message.includes('Insufficient')) {
+        throw AppError.badRequest('Insufficient reserved stock to release');
+      }
       throw AppError.internal(error.message);
     }
   }

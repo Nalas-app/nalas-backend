@@ -1,1 +1,0 @@
-# nalas-backend
