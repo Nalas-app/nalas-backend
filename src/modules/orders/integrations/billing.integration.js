@@ -40,6 +40,13 @@ async function createQuotationForOrder(orderId, options = {}) {
 }
 
 async function createInvoiceForOrder(orderId, dueDate) {
+    // Check if invoice already exists (idempotency)
+    const existingInvoices = await billingRepository.findAllInvoices({ order_id: orderId }, 1, 0);
+    if (existingInvoices && existingInvoices.length > 0) {
+        logger.info(`[Billing Integration] Invoice already exists for order ${orderId}, returning existing.`);
+        return existingInvoices[0];
+    }
+
     logger.info(`[Billing Integration] Creating invoice for order ${orderId}`);
     try {
         const invoice = await withTimeout(

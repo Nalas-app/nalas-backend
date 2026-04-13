@@ -187,14 +187,14 @@ class OrderRepository {
     return result.rows[0];
   }
 
-  async getStockReservations(orderId) {
+  async getStockReservations(orderId, client = db) {
     const query = `
       SELECT osr.*, i.name as ingredient_name, i.unit
       FROM order_stock_reservations osr
       LEFT JOIN ingredients i ON osr.ingredient_id = i.id
       WHERE osr.order_id = $1
     `;
-    const result = await db.query(query, [orderId]);
+    const result = await client.query(query, [orderId]);
     return result.rows;
   }
 

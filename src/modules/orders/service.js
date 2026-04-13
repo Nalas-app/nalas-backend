@@ -263,6 +263,14 @@ class OrderService {
         }
       }
 
+      // Self-healing: Clear orphaned reservations from previous failed executions
+      const existingReservations = await orderRepository.getStockReservations(orderId, client);
+      if (existingReservations && existingReservations.length > 0) {
+        logger.warn(`Found ${existingReservations.length} orphaned stock reservations for order ${orderId}. Releasing them before starting confirmation.`);
+        await stockIntegration.releaseStockForOrder(orderId, existingReservations);
+        await orderRepository.deleteStockReservations(orderId, client);
+      }
+
       // Reserve stock for all ingredients (all-or-nothing)
       const reservedIngredients = [];
       try {
@@ -297,7 +305,7 @@ class OrderService {
         logger.error('Invoice creation failed, rolling back stock reservations:', invoiceError.message);
         await stockIntegration.releaseStockForOrder(orderId, reservedIngredients);
         await orderRepository.deleteStockReservations(orderId, client);
-        throw AppError.internal('Order confirmation failed: could not generate invoice');
+        throw AppError.internal(`Order confirmation failed: could not generate invoice. Reason: ${invoiceError.message}`);
       }
 
       // Update order status to 'confirmed'
