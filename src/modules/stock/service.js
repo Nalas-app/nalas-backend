@@ -248,6 +248,8 @@ class StockService {
     };
   }
 
+
+
   // ===== STOCK RESERVATION (for orders) =====
   async reserveStock(ingredientId, quantity) {
     const ingredient = await stockRepository.findIngredientById(ingredientId);

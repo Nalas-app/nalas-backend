@@ -157,17 +157,15 @@ class StockRepository {
       SET available_quantity = $1, last_updated = CURRENT_TIMESTAMP
     `;
     const params = [availableQty];
-    let paramCount = 1;
-
     if (reservedQty !== null) {
-      query += `, reserved_quantity = $${paramCount + 1}`;
+      query += `, reserved_quantity = $2`;
       params.push(reservedQty);
-      paramCount++;
+      query += ` WHERE ingredient_id = $3 RETURNING *`;
+      params.push(ingredientId);
+    } else {
+      query += ` WHERE ingredient_id = $2 RETURNING *`;
+      params.push(ingredientId);
     }
-
-    query += ` WHERE ingredient_id = $${paramCount + 1} RETURNING *`;
-    params.push(ingredientId);
-
     const result = await db.query(query, params);
     return result.rows[0];
   }
@@ -245,7 +243,6 @@ class StockRepository {
 
     throw new Error('Insufficient reserved stock to release');
   }
-
   async getAllCurrentStock(limit = 100, offset = 0) {
     const query = `
       SELECT cs.*, i.name, i.unit, i.current_price_per_unit
