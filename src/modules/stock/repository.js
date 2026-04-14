@@ -157,7 +157,6 @@ class StockRepository {
       SET available_quantity = $1, last_updated = CURRENT_TIMESTAMP
     `;
     const params = [availableQty];
-
     if (reservedQty !== null) {
       query += `, reserved_quantity = $2`;
       params.push(reservedQty);
@@ -167,7 +166,6 @@ class StockRepository {
       query += ` WHERE ingredient_id = $2 RETURNING *`;
       params.push(ingredientId);
     }
-
     const result = await db.query(query, params);
     return result.rows[0];
   }
@@ -221,6 +219,30 @@ class StockRepository {
     throw new Error('Insufficient reserved stock');
   }
 
+  async releaseReservedStock(ingredientId, quantity) {
+    const query = `
+      UPDATE current_stock
+      SET
+        reserved_quantity = reserved_quantity - $2,
+        available_quantity = available_quantity + $2,
+        last_updated = CURRENT_TIMESTAMP
+      WHERE ingredient_id = $1
+        AND reserved_quantity >= $2
+      RETURNING *
+    `;
+
+    const result = await db.query(query, [ingredientId, quantity]);
+    if (result.rows[0]) {
+      return result.rows[0];
+    }
+
+    const stock = await this.getCurrentStock(ingredientId);
+    if (!stock) {
+      throw new Error('No stock found for ingredient');
+    }
+
+    throw new Error('Insufficient reserved stock to release');
+  }
   async getAllCurrentStock(limit = 100, offset = 0) {
     const query = `
       SELECT cs.*, i.name, i.unit, i.current_price_per_unit

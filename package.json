@@ -17,7 +17,7 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
+    "express": "^4.22.1",
     "express-rate-limit": "^7.1.5",
     "helmet": "^7.1.0",
     "joi": "^17.11.0",
@@ -32,5 +32,13 @@
     "jest": "^29.7.0",
     "nodemon": "^3.0.2",
     "supertest": "^6.3.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nalas-app/nalas-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nalas-app/nalas-backend/issues"
+  },
+  "homepage": "https://github.com/Nalas-app/nalas-backend#readme"
 }

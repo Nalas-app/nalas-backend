@@ -3,6 +3,8 @@ const AppError = require('../../shared/errors/AppError');
 const orderRepository = require('./repository');
 const billingService = require('../billing/service');
 const stockService = require('../stock/service');
+const stockIntegration = require('./integrations/stock.integration');
+const billingIntegration = require('./integrations/billing.integration');
 const menuRepository = require('../menu/repository');
 const logger = require('../../shared/utils/logger');
 const { pool } = require('../../config/database');
@@ -78,6 +80,23 @@ class OrderService {
       throw AppError.notFound('Order');
     }
 
+    // Idempotency: If order is already quoted, just fetch and return existing
+    if (order.status === 'quoted') {
+      const existingQuotation = await billingIntegration.createQuotationForOrder(orderId, {
+        labor_cost_per_guest: 500,
+        overhead_percentage: 10,
+        tax_percentage: 5
+      });
+      return {
+        order_id: orderId,
+        quotation: existingQuotation,
+        item_breakdown: [],
+        is_ml_predicted: false,
+        status: order.status,
+        already_exists: true
+      };
+    }
+
     if (order.status !== 'draft') {
       throw AppError.badRequest(
         'Quotation can only be generated for draft orders',
@@ -103,10 +122,10 @@ class OrderService {
       try {
         // Attempt ML-based cost prediction
         const mlServiceUrl = process.env.ML_SERVICE_URL || 'http://localhost:8000';
-        
+
         // Fetch recipe or base data to provide to ML
         const recipe = await menuRepository.getRecipe(item.menu_item_id);
-        const baseIngredientCost = recipe && recipe.length > 0 
+        const baseIngredientCost = recipe && recipe.length > 0
           ? recipe.reduce((total, r) => total + (r.quantity_per_base_unit * (r.wastage_factor || 1.0) * r.current_price_per_unit), 0)
           : (item.unit_price || 500);
 
@@ -129,7 +148,7 @@ class OrderService {
       } catch (err) {
         // ML failure fallback: Recipe-based calculation
         logger.warn(`ML prediction failed for item ${item.menu_item_id}, falling back to recipe:`, err.message);
-        
+
         const recipe = await menuRepository.getRecipe(item.menu_item_id);
         if (recipe && recipe.length > 0) {
           itemCost = recipe.reduce((total, r) => {
@@ -156,9 +175,8 @@ class OrderService {
       });
     }
 
-    // Create quotation via billing service
-    const quotation = await billingService.createQuotation({
-      order_id: orderId,
+    // Create quotation via billing integration
+    const quotation = await billingIntegration.createQuotationForOrder(orderId, {
       labor_cost_per_guest: 500,
       overhead_percentage: 10,
       tax_percentage: 5
@@ -245,40 +263,59 @@ class OrderService {
         }
       }
 
-      // Reserve stock for all ingredients (all-or-nothing)
-      const reservedIngredients = [];
-      for (const [ingredientId, need] of Object.entries(ingredientNeeds)) {
-        // This call might also need to be part of the transaction 
-        // depending on how stockService is implemented.
-        // For now, we rely on the order lock and all-or-nothing rollback below.
-        await stockService.reserveStock(ingredientId, need.quantity);
-        reservedIngredients.push({
-          ingredient_id: ingredientId,
-          quantity: need.quantity
-        });
-
-        // Save reservation record
-        await orderRepository.saveStockReservation(orderId, ingredientId, need.quantity);
+      // Self-healing: Clear orphaned reservations from previous failed executions
+      const existingReservations = await orderRepository.getStockReservations(orderId, client);
+      if (existingReservations && existingReservations.length > 0) {
+        logger.warn(`Found ${existingReservations.length} orphaned stock reservations for order ${orderId}. Releasing them before starting confirmation.`);
+        await stockIntegration.releaseStockForOrder(orderId, existingReservations);
+        await orderRepository.deleteStockReservations(orderId, client);
       }
 
-      // Create invoice via billing service
+      // Reserve stock for all ingredients (all-or-nothing)
+      const reservedIngredients = [];
+      try {
+        const reservations = await stockIntegration.reserveStockForOrder(orderId, ingredientNeeds);
+        for (const reserved of reservations) {
+          reservedIngredients.push({
+            ingredient_id: reserved.ingredient_id,
+            quantity: reserved.quantity
+          });
+          // Save reservation record
+          await orderRepository.saveStockReservation(orderId, reserved.ingredient_id, reserved.quantity, client);
+        }
+      } catch (stockError) {
+        // Clean up local DB reservation records if any were saved partially
+        try {
+          await orderRepository.deleteStockReservations(orderId, client);
+        } catch (cleanupError) {
+          logger.error('Failed to clean up reservation records:', cleanupError.message);
+        }
+        throw new Error(`Insufficient stock: ${stockError.message}`);
+      }
+
+      // Create invoice via billing integration helper
       let invoice;
       try {
-        invoice = await billingService.createInvoice({
-          order_id: orderId,
-          due_date: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString()
-        });
+        invoice = await billingIntegration.createInvoiceForOrder(
+          orderId,
+          new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString()
+        );
       } catch (invoiceError) {
-        throw new Error(`Invoice generation failed: ${invoiceError.message}`);
+        // Compensating transaction: release all reserved stock
+        logger.error('Invoice creation failed, rolling back stock reservations:', invoiceError.message);
+        await stockIntegration.releaseStockForOrder(orderId, reservedIngredients);
+        await orderRepository.deleteStockReservations(orderId, client);
+        throw AppError.internal(`Order confirmation failed: could not generate invoice. Reason: ${invoiceError.message}`);
       }
 
       // Update order status to 'confirmed'
-      const updatedOrder = await orderRepository.updateOrderStatus(orderId, 'confirmed');
+      const updatedOrder = await orderRepository.updateOrderStatus(orderId, 'confirmed', client);
 
       // Log status change
       await orderRepository.logStatusChange(
         orderId, 'quoted', 'confirmed', userId,
-        `Stock reserved for ${reservedIngredients.length} ingredients. Invoice ${invoice.invoice_number} created.`
+        `Stock reserved for ${reservedIngredients.length} ingredients. Invoice ${invoice.invoice_number} created.`,
+        client
       );
 
       await client.query('COMMIT');
@@ -295,11 +332,11 @@ class OrderService {
       };
     } catch (err) {
       await client.query('ROLLBACK');
-      
+
       // Secondary rollback: release stock if reserved
       // (Note: In a robust distributed transaction, we'd use a more unified approach)
       logger.error('Order confirmation failed, rolling back:', err.message);
-      
+
       throw err;
     } finally {
       client.release();
@@ -430,20 +467,7 @@ class OrderService {
     if (newStatus === 'cancelled' && ['confirmed', 'preparing'].includes(order.status)) {
       try {
         const reservations = await orderRepository.getStockReservations(orderId);
-        for (const reservation of reservations) {
-          try {
-            await stockService.releaseReservedStock(
-              reservation.ingredient_id,
-              Number(reservation.reserved_quantity)
-            );
-          } catch (releaseError) {
-            logger.error(
-              `Failed to release stock for ingredient ${reservation.ingredient_id} on order ${orderId}:`,
-              releaseError.message
-            );
-            // Continue releasing other ingredients; don't block cancellation
-          }
-        }
+        await stockIntegration.releaseStockForOrder(orderId, reservations);
         await orderRepository.deleteStockReservations(orderId);
       } catch (err) {
         logger.error(`Stock release failed during cancellation of order ${orderId}:`, err.message);

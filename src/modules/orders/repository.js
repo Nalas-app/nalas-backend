@@ -87,14 +87,14 @@ class OrderRepository {
     return result.rows[0];
   }
 
-  async updateOrderStatus(orderId, status) {
+  async updateOrderStatus(orderId, status, client = db) {
     const query = `
       UPDATE orders 
       SET status = $1, updated_at = CURRENT_TIMESTAMP
       WHERE id = $2
       RETURNING *
     `;
-    const result = await db.query(query, [status, orderId]);
+    const result = await client.query(query, [status, orderId]);
     return result.rows[0];
   }
 
@@ -155,14 +155,14 @@ class OrderRepository {
     return result.rows;
   }
 
-  async logStatusChange(orderId, oldStatus, newStatus, changedBy, notes = null) {
+  async logStatusChange(orderId, oldStatus, newStatus, changedBy, notes = null, client = db) {
     const query = `
       INSERT INTO order_status_history 
       (order_id, old_status, new_status, changed_by, notes)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *
     `;
-    const result = await db.query(query, [orderId, oldStatus, newStatus, changedBy, notes]);
+    const result = await client.query(query, [orderId, oldStatus, newStatus, changedBy, notes]);
     return result.rows[0];
   }
 
@@ -176,31 +176,31 @@ class OrderRepository {
     return result.rows;
   }
 
-  async saveStockReservation(orderId, ingredientId, quantity) {
+  async saveStockReservation(orderId, ingredientId, quantity, client = db) {
     const query = `
       INSERT INTO order_stock_reservations 
       (order_id, ingredient_id, reserved_quantity)
       VALUES ($1, $2, $3)
       RETURNING *
     `;
-    const result = await db.query(query, [orderId, ingredientId, quantity]);
+    const result = await client.query(query, [orderId, ingredientId, quantity]);
     return result.rows[0];
   }
 
-  async getStockReservations(orderId) {
+  async getStockReservations(orderId, client = db) {
     const query = `
       SELECT osr.*, i.name as ingredient_name, i.unit
       FROM order_stock_reservations osr
       LEFT JOIN ingredients i ON osr.ingredient_id = i.id
       WHERE osr.order_id = $1
     `;
-    const result = await db.query(query, [orderId]);
+    const result = await client.query(query, [orderId]);
     return result.rows;
   }
 
-  async deleteStockReservations(orderId) {
+  async deleteStockReservations(orderId, client = db) {
     const query = 'DELETE FROM order_stock_reservations WHERE order_id = $1';
-    await db.query(query, [orderId]);
+    await client.query(query, [orderId]);
   }
 }
 
