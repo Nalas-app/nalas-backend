@@ -3,7 +3,9 @@ const orderRepository = require('./repository');
 const billingService = require('../billing/service');
 const stockService = require('../stock/service');
 const menuRepository = require('../menu/repository');
+const mlCostingRepository = require('../ml-costing/repository');
 const logger = require('../../shared/utils/logger');
+const mlClient = require('../../shared/utils/mlClient');
 
 class OrderService {
   async createOrder(customerId, orderData) {
@@ -96,33 +98,59 @@ class OrderService {
 
     for (const item of orderItems) {
       let itemCost;
+      let usedMl = false;
 
       try {
-        // Attempt ML-based cost prediction
-        // TODO: Replace with actual ML service call when available
-        // For now, use recipe-based calculation as the primary method
-        const recipe = await menuRepository.getRecipe(item.menu_item_id);
+        // 1. Attempt ML-based cost prediction (FastAPI Service)
+        const prediction = await mlClient.predictCost({
+          menuItemId: item.menu_item_id,
+          quantity: item.quantity,
+          eventDate: order.event_date,
+          guestCount: order.guest_count
+        });
 
-        if (recipe && recipe.length > 0) {
-          // Recipe-based calculation: sum(qty_per_unit × wastage × price × order_qty)
-          itemCost = recipe.reduce((total, r) => {
-            return total + (
-              r.quantity_per_base_unit *
-              (r.wastage_factor || 1.0) *
-              r.current_price_per_unit *
-              item.quantity
-            );
-          }, 0);
-        } else {
-          // Fallback: use item unit_price × 1.3 markup
-          itemCost = (item.unit_price || 500) * item.quantity * 1.3;
-          isMlPredicted = false;
+        if (prediction && prediction.totalCost) {
+          itemCost = prediction.totalCost;
+          usedMl = true;
+
+          // Mugil's Task: Log prediction results to the database for evaluation
+          await mlCostingRepository.createPrediction({
+            order_item_id: item.id,
+            ingredient_cost: prediction.ingredientCost,
+            labor_cost: prediction.laborCost,
+            overhead_cost: prediction.overheadCost,
+            predicted_total: prediction.totalCost,
+            model_version: prediction.modelVersion,
+            prediction_confidence: prediction.confidence
+          });
         }
       } catch (err) {
-        // ML/recipe failure fallback
-        logger.error(`Cost calculation failed for item ${item.menu_item_id}:`, err.message);
-        itemCost = (item.unit_price || 500) * item.quantity * 1.3;
+        logger.warn(`ML service unavailable for item ${item.menu_item_id}, falling back to recipe.`, err.message);
+      }
+
+      // 2. Fallback: Recipe-based calculation
+      if (!usedMl) {
         isMlPredicted = false;
+        try {
+          const recipe = await menuRepository.getRecipe(item.menu_item_id);
+
+          if (recipe && recipe.length > 0) {
+            itemCost = recipe.reduce((total, r) => {
+              return total + (
+                r.quantity_per_base_unit *
+                (r.wastage_factor || 1.0) *
+                r.current_price_per_unit *
+                item.quantity
+              );
+            }, 0);
+          } else {
+            // 3. Last Resort: static markup
+            itemCost = (item.unit_price || 500) * item.quantity * 1.3;
+          }
+        } catch (recipeErr) {
+          logger.error(`Recipe calculation failed for item ${item.menu_item_id}:`, recipeErr.message);
+          itemCost = (item.unit_price || 500) * item.quantity * 1.3;
+        }
       }
 
       subtotal += itemCost;
@@ -130,7 +158,8 @@ class OrderService {
         menu_item_id: item.menu_item_id,
         name: item.name,
         quantity: item.quantity,
-        calculated_cost: itemCost
+        calculated_cost: itemCost,
+        method: usedMl ? 'ml_prediction' : 'recipe_calculation'
       });
     }
 

@@ -48,6 +48,7 @@ app.use('/api/v1/stock', require('./modules/stock/routes'));
 app.use('/api/v1/menu', require('./modules/menu/routes'));
 app.use('/api/v1/billing', require('./modules/billing/routes'));
 app.use('/api/v1/ml-costing', require('./modules/ml-costing/routes'));
+app.use('/api/v1/dashboard', require('./modules/dashboard/routes'));
 
 // 404 handler
 app.use((req, res) => {
