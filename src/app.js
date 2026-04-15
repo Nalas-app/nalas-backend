@@ -11,14 +11,7 @@ const app = express();
 // Security
 app.use(helmet());
 app.use(cors({
-  origin: function (origin, callback) {
-    const allowed = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'];
-    if (!origin || allowed.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
   credentials: true
 }));
 
@@ -31,7 +24,7 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Body parsing
-app.use(express.json({ limit: '1mb' }));
+app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Request logging
@@ -55,6 +48,7 @@ app.use('/api/v1/stock', require('./modules/stock/routes'));
 app.use('/api/v1/menu', require('./modules/menu/routes'));
 app.use('/api/v1/billing', require('./modules/billing/routes'));
 app.use('/api/v1/ml-costing', require('./modules/ml-costing/routes'));
+app.use('/api/v1/dashboard', require('./modules/dashboard/routes'));
 
 // 404 handler
 app.use((req, res) => {

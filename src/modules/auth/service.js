@@ -50,25 +50,99 @@ class AuthService {
       throw AppError.forbidden('Account is deactivated');
     }
 
-    const token = this.generateToken(user);
-
+    const { accessToken, refreshToken } = await this.generateTokens(user);
+    
     return {
       user: {
         id: user.id,
         email: user.email,
         role: user.role
       },
-      token
+      accessToken,
+      refreshToken
     };
   }
 
+  async logout(token) {
+    // Decode token to get expiry
+    const decoded = jwt.decode(token);
+    if (!decoded) return;
+
+    const expiresAt = new Date(decoded.exp * 1000);
+    await authRepository.blacklistToken(token, expiresAt);
+  }
+
+  async refreshToken(oldRefreshToken) {
+    const refreshTokenData = await authRepository.findRefreshToken(oldRefreshToken);
+    
+    if (!refreshTokenData || new Date(refreshTokenData.expires_at) < new Date()) {
+      throw AppError.unauthorized('Invalid or expired refresh token');
+    }
+
+    const user = await authRepository.findUserById(refreshTokenData.user_id);
+    if (!user || !user.is_active) {
+      throw AppError.unauthorized('User not found or inactive');
+    }
+
+    // Revoke old token
+    await authRepository.revokeRefreshToken(oldRefreshToken);
+
+    // Generate new pair
+    const { accessToken, refreshToken } = await this.generateTokens(user);
+    
+    return { accessToken, refreshToken };
+  }
+
+  async requestPasswordReset(email) {
+    const user = await authRepository.findUserByEmail(email);
+    if (!user) {
+      // Don't leak user existence; return success even if email not found
+      return;
+    }
+
+    const resetToken = require('crypto').randomBytes(32).toString('hex');
+    const expires = new Date(Date.now() + 3600000); // 1 hour
+
+    await authRepository.setUserResetToken(user.id, resetToken, expires);
+
+    // Production-ready TODO: Send real email
+    // For now, console log for demo
+    console.log('\n===== PASSWORD RESET EMAIL =====');
+    console.log(`To: ${email}`);
+    console.log(`Link: http://localhost:5173/reset-password?token=${resetToken}`);
+    console.log('=================================\n');
+  }
+
+  async resetPassword(token, newPassword) {
+    const user = await authRepository.findUserByResetToken(token);
+    if (!user) {
+      throw AppError.badRequest('Invalid or expired reset token');
+    }
+
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+    await authRepository.updatePassword(user.id, passwordHash);
+  }
+
+  async generateTokens(user) {
+    const accessToken = jwt.sign(
+      { userId: user.id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '15m' }
+    );
+
+    const refreshToken = require('crypto').randomBytes(40).toString('hex');
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+
+    await authRepository.saveRefreshToken(user.id, refreshToken, expiresAt);
+
+    return { accessToken, refreshToken };
+  }
+
+  // Preserve legacy method for backward compatibility if needed, 
+  // but internally uses new logic
   generateToken(user) {
     return jwt.sign(
-      {
-        userId: user.id,
-        email: user.email,
-        role: user.role
-      },
+      { userId: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
