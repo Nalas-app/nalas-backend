@@ -44,13 +44,14 @@ erDiagram
     MENU_ITEMS {
         uuid id PK
         uuid category_id FK
-        string name
+        string name "Unique"
         decimal min_quantity
     }
 
     INGREDIENTS {
         uuid id PK
-        string name
+        string name "Unique"
+        string category "e.g. Provisions, Vegetables"
         decimal current_price_per_unit
         decimal reorder_level
     }

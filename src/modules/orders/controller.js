@@ -93,13 +93,9 @@ class OrderController {
         req.user?.id || null
       );
 
-      const message = result.already_exists
-        ? 'Quotation already exists, returning existing'
-        : 'Quotation generated successfully';
-
       res.json({
         success: true,
-        message: message,
+        message: 'Quotation generated successfully',
         data: result
       });
     } catch (error) {

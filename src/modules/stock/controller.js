@@ -143,7 +143,7 @@ class StockController {
   async getProcurementAlerts(req, res, next) {
     try {
       const result = await stockService.getProcurementAlerts(req.query);
-      const summary = stockService.getProcurementAlertsSummary(result);
+      const summary = stockService.getProcurementAlertsSummary ? stockService.getProcurementAlertsSummary(result) : undefined;
 
       res.json({
         success: true,

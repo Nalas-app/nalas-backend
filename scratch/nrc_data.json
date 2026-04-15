@@ -1,0 +1,3457 @@
+{
+  "ingredients": [
+    {
+      "name": "Name",
+      "category": "Description",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Garbage Cover - XL",
+      "category": "Cleaning Materials",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Dishwash Liquid (Soap Oil)",
+      "category": "Cleaning Materials",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Dishwash Bar",
+      "category": "Cleaning Materials",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Head Cap (Pkt)",
+      "category": "OTHER'S",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Surgical Hand Gloves (Pkt)",
+      "category": "OTHER'S",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "GG Paste",
+      "category": "Paste",
+      "unit": "Kg",
+      "price": 20.0
+    },
+    {
+      "name": "Pickle (mango Thokku)",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Pickle (Mango )",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 4.0
+    },
+    {
+      "name": "Pickle (Narthangai)",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 1.5
+    },
+    {
+      "name": "Rock Salt",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 30.0
+    },
+    {
+      "name": "Salt",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 23.0
+    },
+    {
+      "name": "Sugar",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 23.0
+    },
+    {
+      "name": "Vellam",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 6.0
+    },
+    {
+      "name": "Tea      Powder",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Coffee Powder",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 2.0
+    },
+    {
+      "name": "Green Chilli Sauce (700 Ml)",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Soya Sauce (700 Ml)",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Tomato Sauce (1 Ltr)",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Papad (appalam) - Round",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Vathal",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 5.0
+    },
+    {
+      "name": "Sunflower Oil",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 40.0
+    },
+    {
+      "name": "Coconut    Oil",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 17.0
+    },
+    {
+      "name": "Grounut    Oil",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 5.0
+    },
+    {
+      "name": "Gingelly    Oil",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 17.0
+    },
+    {
+      "name": "Wheat     Atta",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 35.0
+    },
+    {
+      "name": "Corn Floor",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 4.0
+    },
+    {
+      "name": "Rice  Floor",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Maida",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Kelanghu Maavu",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Soya",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Noodle",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Soya Bean",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Ghee",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 10.0
+    },
+    {
+      "name": "Kadalai Floor",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 1.0
+    },
+    {
+      "name": "Appalam",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 1.0
+    },
+    {
+      "name": "Kollu",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 2.0
+    },
+    {
+      "name": "Thuvaram Paruppu       (Toor Dhaal)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 20.0
+    },
+    {
+      "name": "Paasi        Paruppu     (Moong Dhal)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 18.0
+    },
+    {
+      "name": "Kadalai     Paruppu",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 5.0
+    },
+    {
+      "name": "Vadai       Paruppu",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 2.0
+    },
+    {
+      "name": "Karuppu   Sundal",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 9.75
+    },
+    {
+      "name": "Chenna",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 7.5
+    },
+    {
+      "name": "Pachai      Payyuru",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 5.0
+    },
+    {
+      "name": "Thatta      Payyuru",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Pachai      Kadalai",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Pottu Kadalai",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 10.0
+    },
+    {
+      "name": "Varutha    Kadalai",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 0.6
+    },
+    {
+      "name": "Thalippu      Ullundhu",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Uruttu      Ullundhu",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 39.0
+    },
+    {
+      "name": "Vellai       Rava",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Samaba      Rava",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 29.0
+    },
+    {
+      "name": "Samiya",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 4.0
+    },
+    {
+      "name": "Idli                 Rice",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 50.0
+    },
+    {
+      "name": "SS                   Rice",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 45.0
+    },
+    {
+      "name": "Raw               Rice",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Biryani         Rice",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 11.0
+    },
+    {
+      "name": "Biryani         Rice  KP",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 100.0
+    },
+    {
+      "name": "Pachai         Rice",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 16.0
+    },
+    {
+      "name": "Javvu Aruse",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 2.0
+    },
+    {
+      "name": "Basmathi Rice",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 1.0
+    },
+    {
+      "name": "Payasa Ravai Wheet",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 3.0
+    },
+    {
+      "name": "Bay Leaf",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.9
+    },
+    {
+      "name": "Black Pepper Corn",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 5.75
+    },
+    {
+      "name": "Black Pepper Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Pattai                            (Cinnamon)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 1.0
+    },
+    {
+      "name": "Kirambu                              (Cloves)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 2.2199999999999998
+    },
+    {
+      "name": "Ellakai                                  (Elachi)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.85
+    },
+    {
+      "name": "Sombu                                 (Fennel)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 2.0
+    },
+    {
+      "name": "Seeragam       (Jeera/ Cumin Seeds)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 6.0
+    },
+    {
+      "name": "Kasa Kasa",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.5
+    },
+    {
+      "name": "Pulli                                 (Tamarind)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 12.5
+    },
+    {
+      "name": "Raw Malli                       (Coriander)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 2.0
+    },
+    {
+      "name": "Vendhayam        (Fenugreek Seeds)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 7.2
+    },
+    {
+      "name": "Kadugu                    (Mustard Seed)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 3.3
+    },
+    {
+      "name": "Red Chilli         - Long",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 2.0
+    },
+    {
+      "name": "Red Chilli         - Round",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 2.0
+    },
+    {
+      "name": "Turmeric             Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 3.5
+    },
+    {
+      "name": "Curry  Masala     Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 1.0
+    },
+    {
+      "name": "Malli                   Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 10.5
+    },
+    {
+      "name": "Sambar Masala      Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 18.5
+    },
+    {
+      "name": "Kashmiri Chilli       Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Chilly     Masala     Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 9.0
+    },
+    {
+      "name": "Mutton Masala     Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 2.0
+    },
+    {
+      "name": "Chicken Masala    Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 1.7
+    },
+    {
+      "name": "Garam Masala       Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 1.5
+    },
+    {
+      "name": "Asafoetida         Powder (LG)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.65
+    },
+    {
+      "name": "Asafoetida        Cake     (LG)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.4
+    },
+    {
+      "name": "Idli Podi",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 2.6
+    },
+    {
+      "name": "Sundai  Vathal",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 1.7
+    },
+    {
+      "name": "CASHEW NUT (Thool)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 5.0
+    },
+    {
+      "name": "Kasthuri Methi",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.5
+    },
+    {
+      "name": "Kalpasi",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.15
+    },
+    {
+      "name": "Annachi Poo",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.25
+    },
+    {
+      "name": "Dry Grapes",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "Phenoyl (700 Ml)",
+      "category": "Cleaning Materials",
+      "unit": "Kg",
+      "price": 17.0
+    },
+    {
+      "name": "SCRUBBER - DISHWASH",
+      "category": "Cleaning Materials",
+      "unit": "Kg",
+      "price": 10.0
+    },
+    {
+      "name": "Butter",
+      "category": "Dairy Products",
+      "unit": "Kg",
+      "price": 170.0
+    },
+    {
+      "name": "Curd",
+      "category": "Dairy Products",
+      "unit": "Kg",
+      "price": 62.0
+    },
+    {
+      "name": "Milk",
+      "category": "Dairy Products",
+      "unit": "Kg",
+      "price": 58.0
+    },
+    {
+      "name": "Cream",
+      "category": "Dairy Products",
+      "unit": "Kg",
+      "price": 170.0
+    },
+    {
+      "name": "Panner",
+      "category": "Dairy Products",
+      "unit": "Kg",
+      "price": 330.0
+    },
+    {
+      "name": "Bread",
+      "category": "Dairy Products",
+      "unit": "Kg",
+      "price": 100.0
+    },
+    {
+      "name": "Cashew Nut (1/4) or (1/2)",
+      "category": "Dry Fruits",
+      "unit": "Kg",
+      "price": 460.0
+    },
+    {
+      "name": "Chicken - BONELESS",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 270.0
+    },
+    {
+      "name": "Chicken - Janatha",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 55.0
+    },
+    {
+      "name": "Chicken - Trimming",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 190.0
+    },
+    {
+      "name": "Chicken - Whole Bird (Skinless)",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 140.0
+    },
+    {
+      "name": "MUTTON - Boneless",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 0.0
+    },
+    {
+      "name": "MUTTON - Fat",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 330.0
+    },
+    {
+      "name": "Egg",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 5.1
+    },
+    {
+      "name": "Prawns washed",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 450.0
+    },
+    {
+      "name": "crab boneless",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 480.0
+    },
+    {
+      "name": "mutton boneless",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 830.0
+    },
+    {
+      "name": "fish",
+      "category": "Meat & Poultry",
+      "unit": "Kg",
+      "price": 200.0
+    },
+    {
+      "name": "Ginger Paste",
+      "category": "Paste",
+      "unit": "Kg",
+      "price": 50.0
+    },
+    {
+      "name": "Garlic Paste",
+      "category": "Paste",
+      "unit": "Kg",
+      "price": 50.0
+    },
+    {
+      "name": "Idly Batter",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 30.0
+    },
+    {
+      "name": "Pickle (mango Thokku- 777 Brand)",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 50.0
+    },
+    {
+      "name": "Tamarind (puli)",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 125.0
+    },
+    {
+      "name": "Tea Powder",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 370.0
+    },
+    {
+      "name": "Refind Oil",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 162.0
+    },
+    {
+      "name": "Drinking Water Can (20 Ltrs)",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 20.0
+    },
+    {
+      "name": "Vinegar (1 Ltr)",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 16.0
+    },
+    {
+      "name": "Coconu oil",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 230.0
+    },
+    {
+      "name": "Gingelly oil",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 250.0
+    },
+    {
+      "name": "peanut oil",
+      "category": "Provisions",
+      "unit": "Kg",
+      "price": 200.0
+    },
+    {
+      "name": "Basmati Rice",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 102.0
+    },
+    {
+      "name": "Bengal Gram Dhal (kadalai Paruppu)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 77.0
+    },
+    {
+      "name": "Boiled Rice",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 38.0
+    },
+    {
+      "name": "Corn Flour",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 19.64
+    },
+    {
+      "name": "Flat Rice - Thick (aval - Getti)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 54.0
+    },
+    {
+      "name": "Maida (Refined Flour)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 38.0
+    },
+    {
+      "name": "Moong Daal (paasi Paruppu)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 102.0
+    },
+    {
+      "name": "Rice - seeragasamba",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 92.0
+    },
+    {
+      "name": "Rawa (sooji)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 43.0
+    },
+    {
+      "name": "Toor Dhal (thuvaram Paruppu)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 100.0
+    },
+    {
+      "name": "Urad Dhal (ulutham Paruppu)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 125.0
+    },
+    {
+      "name": "Vermicili (semiya) - Savorite",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 72.0
+    },
+    {
+      "name": "Wheat Flour (atta)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 36.0
+    },
+    {
+      "name": "White Channa",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 80.0
+    },
+    {
+      "name": "rice flour",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 40.0
+    },
+    {
+      "name": "besan flour",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 80.0
+    },
+    {
+      "name": "Coconut powder (deoiled)",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 30.0
+    },
+    {
+      "name": "vadai paruppu",
+      "category": "Rice & Others",
+      "unit": "Kg",
+      "price": 104.0
+    },
+    {
+      "name": "Cardamom (elachi)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 1750.0
+    },
+    {
+      "name": "Channa Masala",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 514.3
+    },
+    {
+      "name": "Chicken Masala (shakthi)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 360.0
+    },
+    {
+      "name": "Chilli Powder (shakthi)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 180.0
+    },
+    {
+      "name": "Cinnamon (pattai)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 260.0
+    },
+    {
+      "name": "Cloves (Kirambu)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 620.0
+    },
+    {
+      "name": "Coriander Powder (dhainya Powder)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 180.0
+    },
+    {
+      "name": "Coriander Seeds-whole (Dhaniya)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 90.0
+    },
+    {
+      "name": "Cumin Seeds (jeera)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 240.0
+    },
+    {
+      "name": "Fennel (sombu)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 200.0
+    },
+    {
+      "name": "Fenugreek Seeds (vendhayam)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 57.14
+    },
+    {
+      "name": "Fried Gram Dhal (udachakadalai)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 80.0
+    },
+    {
+      "name": "Garam Masala (everest)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 400.0
+    },
+    {
+      "name": "Groundnut",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 125.0
+    },
+    {
+      "name": "Mustard Seed",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 72.0
+    },
+    {
+      "name": "Red Chilli - Long",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 250.0
+    },
+    {
+      "name": "Red Chilli - Round",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 210.0
+    },
+    {
+      "name": "Sambar Masala (shakthi)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 250.0
+    },
+    {
+      "name": "Turmeric Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 100.0
+    },
+    {
+      "name": "White Pepper Powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 70.0
+    },
+    {
+      "name": "kolapasi masala powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 480.0
+    },
+    {
+      "name": "Keema Masala Powder",
+      "category": "spices",
+      "unit": "Kg",
+      "price": 450.0
+    },
+    {
+      "name": "Chukka Masala Powder",
+      "category": "spices",
+      "unit": "Kg",
+      "price": 600.0
+    },
+    {
+      "name": "Mutton Varuval Powder",
+      "category": "spices",
+      "unit": "Kg",
+      "price": 550.0
+    },
+    {
+      "name": "Prawn Masala Powder",
+      "category": "spices",
+      "unit": "Kg",
+      "price": 550.0
+    },
+    {
+      "name": "Garam Masala Powder",
+      "category": "spices",
+      "unit": "Kg",
+      "price": 850.0
+    },
+    {
+      "name": "Kadai Masala",
+      "category": "spices",
+      "unit": "Kg",
+      "price": 79.0
+    },
+    {
+      "name": "Kashmiri Chilli",
+      "category": "spices",
+      "unit": "Kg",
+      "price": 550.0
+    },
+    {
+      "name": "Asafoetida Powder (LG)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 55.0
+    },
+    {
+      "name": "Green chicken masala",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 550.0
+    },
+    {
+      "name": "Biriyani Masala powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 600.0
+    },
+    {
+      "name": "Changezi Masala powder",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 450.0
+    },
+    {
+      "name": "Kasoori Methi",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 1000.0
+    },
+    {
+      "name": "Cinnamon (ceylon)",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 1350.0
+    },
+    {
+      "name": "Eilachi",
+      "category": "Spices",
+      "unit": "Kg",
+      "price": 1900.0
+    },
+    {
+      "name": "LPG Cylinder",
+      "category": "Utilities",
+      "unit": "Kg",
+      "price": 1250.0
+    },
+    {
+      "name": "Corinder Leaves",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 90.0
+    },
+    {
+      "name": "Beans French",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 95.0
+    },
+    {
+      "name": "Brinjal",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 25.0
+    },
+    {
+      "name": "Cabbage",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 26.0
+    },
+    {
+      "name": "Capsicum Green",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 58.0
+    },
+    {
+      "name": "Carrot",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 38.0
+    },
+    {
+      "name": "Coconut",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 100.0
+    },
+    {
+      "name": "Cucumber",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 35.0
+    },
+    {
+      "name": "Curry Leaves",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 50.0
+    },
+    {
+      "name": "Garlic",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 130.0
+    },
+    {
+      "name": "Ginger Fresh",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 100.0
+    },
+    {
+      "name": "Green Chilli",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 55.0
+    },
+    {
+      "name": "Lemon",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 3.0
+    },
+    {
+      "name": "Mint Leaves",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 75.0
+    },
+    {
+      "name": "Onions",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 60.0
+    },
+    {
+      "name": "Potato",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 22.0
+    },
+    {
+      "name": "Small Onions",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 150.0
+    },
+    {
+      "name": "Tomato Country",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 30.0
+    },
+    {
+      "name": "Cauiflower",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 35.0
+    },
+    {
+      "name": "Copra",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 100.0
+    },
+    {
+      "name": "Garlic Dehyrdated",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 120.0
+    },
+    {
+      "name": "Pineapple",
+      "category": "Vegetable & Fruits",
+      "unit": "Kg",
+      "price": 35.0
+    },
+    {
+      "name": "stock water",
+      "category": "Other",
+      "unit": "Kg",
+      "price": 15.0
+    },
+    {
+      "name": "curry leaf",
+      "category": "Other",
+      "unit": "Kg",
+      "price": 60.0
+    },
+    {
+      "name": "malli",
+      "category": "Other",
+      "unit": "Kg",
+      "price": 60.0
+    },
+    {
+      "name": "Puli",
+      "category": "Other",
+      "unit": "Kg",
+      "price": 200.0
+    }
+  ],
+  "menu_items": [
+    {
+      "name": "Lunch Sambar",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "Rasam",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "Pasi Paruppu",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "PULI KUZHAMBU",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "MOOR KUZHABU",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": " CUTLET",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "PORIYAL",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "KOOTU",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "KARA CURRY",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "PARUPPU VADAI",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "PAYASAM",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "TIFFEN SAMBAR",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "UPMA",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "PONGAL",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "RAVA KICHADI",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "POORI MASALA",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "ULLUNDHU VADAI",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "CURD RICE",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "VEG BIRYANI",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "CHI R MUTTON BIRYANI",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "GHEE RICE",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "KADALA CURRY",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "CHI OR MUT KULAMBHU",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "PANNER BUTTER MASALA",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "KARA CHATNI",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "TOMATO CHATNI",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "COCONUT CHATNI",
+      "base_unit": "25 portions"
+    },
+    {
+      "name": "COFFEE TEA SUKKU PAAL",
+      "base_unit": "25 portions"
+    }
+  ],
+  "recipes": [
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Tomato",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Small Onion",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Big Onion",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Green Chilly",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Curry Leaf",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Drum Stick",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Brinjal",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Oil",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Kadugu",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Jeera",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Orid Dhal",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Red Chilly",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Turmeric Powder",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Chilly Powder",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Malli Powder",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Sambar Powder",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "L.G    Powder",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Thuvaram Parupu",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Salt",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Puli",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Garlic",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Ghee",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Lunch Sambar",
+      "ingredient": "Malli Leaf",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Tomato",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Green Chilly",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Karuvapilai",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Garlic",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Oil",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Kadugu",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Vendhayam",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Jeera",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Pepper",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Red Chilly",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Puli",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Turmeric Powder",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "L.G",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Salt",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Malli leafs",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Chilly Powder",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Malli Powder",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Rasam",
+      "ingredient": "Coconut Oil",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "Pasi Parrupu",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "JEERA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "URID DHAL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "KADALAI PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "GARLIC",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "PAASI PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "TURMERIC",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "RED CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "GHEE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "Pasi Paruppu",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "SMALL ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "BIG ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "GREE CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "GARLIC",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "BRINJAL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "PULI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "GINGILLY OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "VANDHAYAM",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "PEPPER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "CHILLY POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "MALLI POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "COCONUT (GRINDED)",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "VELLAM",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "MALLI LEAF",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "ANI SEEDS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PULI KUZHAMBU",
+      "ingredient": "CASHEW  NUTS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "COCONUT OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "PEPPER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "JEERA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "COCONUT (GRINDED)",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "CASHEW NUT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "CURD",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "L.G    POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "VELLAI PUSANNI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "MOOR KUZHABU",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "CUTLET",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "ELACHI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "ANI SEEDS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "G.G.PASTE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "BIG ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "TOMATO",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "COCONUT (GRINDED)",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "CHILLY POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "MALLI POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "CHICKEN Or MUTTON MASALA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "COCONUT OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "MINT LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": " CUTLET",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "RED CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "GARLIC",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "COCONUT GRINDED",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "JEERA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "L.G POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "COCONUT OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "VEGETABLES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PORIYAL",
+      "ingredient": "KADALAI PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "JEERA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "COCONUT (GRINDED)",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "COCONUT OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "ORID DHAL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "KADALAI PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "PASI PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "VEGETABLES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "CURD",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KOOTU",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "VEGETABLES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "COCONUT (GRINDED)",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "RED CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "PEANUT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "ANI SEEDS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "G.G PASTE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "CHILLY POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "MALLI POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "KADALAI PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "ELACHI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "CHICKEN AND MUTTON MASALA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "MALI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CURRY",
+      "ingredient": "COCONUT OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PARUPPU VADAI",
+      "ingredient": "VADAI PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PARUPPU VADAI",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PARUPPU VADAI",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PARUPPU VADAI",
+      "ingredient": "RICE FLOOR",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PARUPPU VADAI",
+      "ingredient": "KEERAI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PARUPPU VADAI",
+      "ingredient": "L.G POWDER",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "PARUPPU VADAI",
+      "ingredient": "GARLIC",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PARUPPU VADAI",
+      "ingredient": "GINGER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PARUPPU VADAI",
+      "ingredient": "RED CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PARUPPU VADAI",
+      "ingredient": "ANI SEEDS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PAYASAM",
+      "ingredient": "PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PAYASAM",
+      "ingredient": "VELLAM",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PAYASAM",
+      "ingredient": "GHEE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PAYASAM",
+      "ingredient": "CASHEW NUT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PAYASAM",
+      "ingredient": "MILK",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PAYASAM",
+      "ingredient": "ELACHI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "ORID DHAL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "JEERA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "RED CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "BIG ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "SMALL ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "CHILLY POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "MALLI POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "SAMBAR POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "L.G POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "THUVARAM PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "VELLAM",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "GHEE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TIFFEN SAMBAR",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "KADALAI PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "ORID DHAL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "GINGER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "ONION",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "SAMBA RAVA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "COCONUT OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "UPMA",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "GHEE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "PEPPER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "JEERA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "GINGER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "CASHEW NUTS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "PAASI PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "RICE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PONGAL",
+      "ingredient": "L.G POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "WHITE RAVA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "ORID DHAL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "KADALA PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "GINGER",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "SUGAR",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "MILK",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "GHEE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "RAVA KICHADI",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "KADALA PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "POTATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "MILK",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "COCONUT OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "POORI MASALA",
+      "ingredient": "GINGER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "ULLUNDHU VADAI",
+      "ingredient": "ORID DHAL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "ULLUNDHU VADAI",
+      "ingredient": "JEERA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "ULLUNDHU VADAI",
+      "ingredient": "PEPPER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "ULLUNDHU VADAI",
+      "ingredient": "L.G POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "ULLUNDHU VADAI",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "ULLUNDHU VADAI",
+      "ingredient": "RICE FLOUR",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "ULLUNDHU VADAI",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CURD RICE",
+      "ingredient": "RICE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CURD RICE",
+      "ingredient": "MILK",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CURD RICE",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CURD RICE",
+      "ingredient": "GHEE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CURD RICE",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "CURD RICE",
+      "ingredient": "CASHEW NUTS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CURD RICE",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CURD RICE",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "GHEE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "PATTAI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "ELACHI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "CLOVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "KALPASI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "TOMATO",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "MINT LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "CURD",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "CHILLY POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "LEMON",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "BIRYANI RICE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "VEG BIRYANI",
+      "ingredient": "G.G PASTE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "CHICKEN OR MUTTON BIRYANI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "GHEE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "PATTAI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "ELACHI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "CLOVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "KALPASI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "TOMATO",
+      "qty_25": 5.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "MINT LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "CURD",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "MALLI   POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "CHILLY POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "MUTTON OR CHICKEN MASALA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "LEMON",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "BIRYANI RICE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI R MUTTON BIRYANI",
+      "ingredient": "G.G PASTE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "GHEE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "PATTAI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "ELACHI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "CLOVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "ANI SEEDS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "CURD",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "MILK",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "SUGAR",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "G.G PASTE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "CASHEW NUT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "GHEE RICE",
+      "ingredient": "MINT LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "KADALAI CURRY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "GREE CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "CHILLY POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "MALLI RAW",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "RED CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "JEERA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "KASA KASA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "CASHEW  NUTS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "COCONUT (GRAINDED)",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "COCONUT OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KADALA CURRY",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "CHICKEN OR MUTTON KULAMBHU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "PATTAI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "ELACHI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "CLOVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "ANI SEEDS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "PEPPER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "JEERA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "RED CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "MALLI LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "KASA KASA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "CASHEW NUT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "CHILLY POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "MALLI   POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "MUTTON OR CHICKEN MASALA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "CURRY MASALA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "SMALL ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "G.G PASTE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "CHI OR MUT KULAMBHU",
+      "ingredient": "COCONUT OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "PATTAI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "KASA KASA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "G.G PASTE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "CASHEW NUTS",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "KASHMIRI CHILLY POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "KAUSTHURI METHI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "SUGAR",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "TOMATO SAUCE",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "MILK",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "BUTTER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "GARAM MASALA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "PANNER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "CAPSICUM",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "PANNER BUTTER MASALA",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "KASDALAI PARUPPU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "ORID DHAL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "PULI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "RED CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "GARLIC",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "GINGER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "TERMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "MINT LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "COCONUT (GRAINDED)",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "KARA CHATNI",
+      "ingredient": "L.G POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "ONION",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "KADUGU",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "TOMATO",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "CURRY LEAVES",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "GARLIC",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "TURMERIC POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "CHILLY POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "MALLI POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "GINGELLY OIL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "TOMATO CHATNI",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COCONUT CHATNI",
+      "ingredient": "COCONUT (GRINDED)",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COCONUT CHATNI",
+      "ingredient": "POTTU KADALAI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COCONUT CHATNI",
+      "ingredient": "PULI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COCONUT CHATNI",
+      "ingredient": "GINGER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COCONUT CHATNI",
+      "ingredient": "GARLIC",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COCONUT CHATNI",
+      "ingredient": "SALT",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COCONUT CHATNI",
+      "ingredient": "GREEN CHILLY",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COFFEE TEA SUKKU PAAL",
+      "ingredient": "TEA",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COFFEE TEA SUKKU PAAL",
+      "ingredient": "MILK",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COFFEE TEA SUKKU PAAL",
+      "ingredient": "SUGAR",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COFFEE TEA SUKKU PAAL",
+      "ingredient": "TEA POWDER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COFFEE TEA SUKKU PAAL",
+      "ingredient": "GINGER",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COFFEE TEA SUKKU PAAL",
+      "ingredient": "ELACHI",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COFFEE TEA SUKKU PAAL",
+      "ingredient": "SUKKU PAL",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COFFEE TEA SUKKU PAAL",
+      "ingredient": "MILK",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COFFEE TEA SUKKU PAAL",
+      "ingredient": "SUGAR",
+      "qty_25": 0.0
+    },
+    {
+      "menu_item": "COFFEE TEA SUKKU PAAL",
+      "ingredient": "SUKKU POWDER",
+      "qty_25": 0.0
+    }
+  ]
+}

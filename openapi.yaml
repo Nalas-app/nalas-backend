@@ -111,6 +111,99 @@ paths:
                       user:
                         type: object
 
+  /auth/logout:
+    post:
+      tags: [Auth]
+      summary: Logout current user
+      responses:
+        200:
+          description: Logout successful
+
+  /auth/me:
+    get:
+      tags: [Auth]
+      summary: Get current authenticated user profile
+      responses:
+        200:
+          description: Profile retrieved
+
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      security: []
+      summary: Refresh JWT Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refreshToken]
+              properties:
+                refreshToken:
+                  type: string
+      responses:
+        200:
+          description: Tokens refreshed
+
+  /auth/forgot-password:
+    post:
+      tags: [Auth]
+      security: []
+      summary: Send password reset link
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+      responses:
+        200:
+          description: Email sent
+
+  /auth/reset-password:
+    post:
+      tags: [Auth]
+      security: []
+      summary: Reset password with token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, newPassword]
+              properties:
+                token:
+                  type: string
+                newPassword:
+                  type: string
+      responses:
+        200:
+          description: Password reset
+
+  # --- DASHBOARD ---
+  /dashboard/stats:
+    get:
+      tags: [Dashboard]
+      summary: Get aggregated dashboard statistics
+      responses:
+        200:
+          description: Aggregated statistics encompassing orders, stock, revenue, etc.
+
+  # --- USERS ---
+  /users:
+    get:
+      tags: [Users]
+      summary: Retrieve list of all registered users/customers
+      responses:
+        200:
+          description: Customers list
+
   # --- ORDERS ---
   /orders:
     post:

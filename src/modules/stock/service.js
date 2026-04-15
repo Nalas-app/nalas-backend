@@ -120,19 +120,19 @@ class StockService {
       throw AppError.internal('Stock not initialized for ingredient');
     }
 
-    let newAvailableQty = Number(currentStock.available_quantity);
-    const quantity = Number(data.quantity);
+    let newAvailableQty = currentStock.available_quantity;
+    const quantity = data.quantity;
 
     // Update stock based on transaction type
     if (data.transaction_type === 'purchase') {
       newAvailableQty += quantity;
     } else if (data.transaction_type === 'consumption' || data.transaction_type === 'wastage') {
-      if (Number(currentStock.available_quantity) < quantity) {
+      if (currentStock.available_quantity < quantity) {
         throw AppError.badRequest('Insufficient stock for this transaction');
       }
       newAvailableQty -= quantity;
     } else if (data.transaction_type === 'adjustment') {
-      newAvailableQty = quantity; // Set to exact quantity
+      newAvailableQty = quantity;
     }
 
     // Create transaction record
@@ -206,9 +206,9 @@ class StockService {
       ingredient_name: s.name,
       unit: s.unit,
       price_per_unit: s.current_price_per_unit,
-      available_quantity: s.available_quantity,
-      reserved_quantity: s.reserved_quantity,
-      usable_quantity: s.available_quantity - s.reserved_quantity
+      available_quantity: Number(s.available_quantity),
+      reserved_quantity: Number(s.reserved_quantity),
+      usable_quantity: Number(s.available_quantity) - Number(s.reserved_quantity)
     }));
   }
 
@@ -230,7 +230,7 @@ class StockService {
       };
     });
 
-    if (filters.severity) {
+    if (filters && filters.severity) {
       return normalizedAlerts.filter(alert => alert.status === filters.severity);
     }
 
@@ -238,6 +238,7 @@ class StockService {
   }
 
   getProcurementAlertsSummary(alerts) {
+    if (!alerts) return undefined;
     const critical = alerts.filter(alert => alert.status === 'CRITICAL').length;
     const low = alerts.filter(alert => alert.status === 'LOW').length;
 
@@ -247,8 +248,6 @@ class StockService {
       low
     };
   }
-
-
 
   // ===== STOCK RESERVATION (for orders) =====
   async reserveStock(ingredientId, quantity) {
@@ -292,9 +291,6 @@ class StockService {
         available_quantity: updated.available_quantity
       };
     } catch (error) {
-      if (error.message.includes('Insufficient')) {
-        throw AppError.badRequest('Insufficient reserved stock to release');
-      }
       throw AppError.internal(error.message);
     }
   }

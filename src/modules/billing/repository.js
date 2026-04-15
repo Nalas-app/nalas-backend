@@ -167,18 +167,6 @@ class BillingRepository {
     return this.updateInvoiceStatus(id, status, paidAmount);
   }
 
-  async updateOverdueInvoices() {
-    const query = `
-      UPDATE invoices 
-      SET payment_status = 'overdue' 
-      WHERE due_date < CURRENT_DATE 
-      AND payment_status IN ('pending', 'partial') 
-      RETURNING *
-    `;
-    const result = await db.query(query);
-    return result.rows;
-  }
-
   // ===== PAYMENTS =====
   async createPayment(data) {
     const query = `
