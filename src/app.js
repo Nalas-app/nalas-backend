@@ -52,6 +52,7 @@ app.use('/api/v1/dashboard', require('./modules/dashboard/routes'));
 
 // 404 handler
 app.use((req, res) => {
+  logger.warn(`404 Not Found: ${req.method} ${req.originalUrl}`);
   res.status(404).json({
     success: false,
     error: {

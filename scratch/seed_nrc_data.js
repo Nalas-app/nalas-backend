@@ -75,9 +75,21 @@ async function seed() {
     for (const recipe of data.recipes) {
         const itemId = itemMap.get(recipe.menu_item);
         const normalizedIngName = normalize(recipe.ingredient);
-        const ingId = ingredientMap.get(normalizedIngName);
+        let ingId = ingredientMap.get(normalizedIngName);
         
-        if (itemId && ingId) {
+        if (itemId) {
+            if (!ingId) {
+                // Auto-create missing ingredient
+                const missingRes = await client.query(`
+                    INSERT INTO ingredients (name, category, unit, current_price_per_unit)
+                    VALUES ($1, $2, $3, $4)
+                    ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name
+                    RETURNING id
+                `, [recipe.ingredient, 'Other', 'kg', 0]);
+                ingId = missingRes.rows[0].id;
+                ingredientMap.set(normalizedIngName, ingId);
+            }
+            
             const normalizedQty = recipe.qty_25 / 25;
             
             await client.query(`

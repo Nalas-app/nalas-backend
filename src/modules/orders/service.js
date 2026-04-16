@@ -1,3 +1,4 @@
+const axios = require('axios');
 const AppError = require('../../shared/errors/AppError');
 const orderRepository = require('./repository');
 const billingService = require('../billing/service');
@@ -6,6 +7,60 @@ const menuRepository = require('../menu/repository');
 const mlCostingRepository = require('../ml-costing/repository');
 const logger = require('../../shared/utils/logger');
 const mlClient = require('../../shared/utils/mlClient');
+
+const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://localhost:8001';
+
+/**
+ * Attempt cost prediction via ML service, fall back to recipe-based calculation.
+ * @param {string} menuItemId
+ * @param {number} quantity
+ * @param {string} eventDate  ISO date string
+ * @param {number} guestCount
+ * @returns {{ cost: number, source: 'ml'|'recipe'|'fallback', confidence: number|null }}
+ */
+async function predictItemCost(menuItemId, quantity, eventDate, guestCount) {
+  // 1. Try ML service first
+  try {
+    const { data } = await axios.post(
+      `${ML_SERVICE_URL}/ml/predict-cost`,
+      {
+        menuItemId: menuItemId,
+        quantity: Math.round(quantity),
+        eventDate: eventDate || new Date().toISOString().slice(0, 10),
+        guestCount: guestCount || 100,
+      },
+      { timeout: 3000 }   // 3s timeout — don't block order flow
+    );
+    if (data && data.totalCost != null) {
+      logger.info(`ML prediction for ${menuItemId}: Rs.${data.totalCost} (confidence: ${data.confidence}, method: ${data.method})`);
+      return { cost: data.totalCost, source: data.method === 'ml_model' ? 'ml' : 'rule_based', confidence: data.confidence };
+    }
+  } catch (mlErr) {
+    // ML service down or item not found — log and fall through to recipe-based
+    logger.warn(`ML service unavailable for ${menuItemId}: ${mlErr.message} — falling back to recipe`);
+  }
+
+  // 2. Recipe-based calculation
+  try {
+    const recipe = await menuRepository.getRecipe(menuItemId);
+    if (recipe && recipe.length > 0) {
+      const cost = recipe.reduce((total, r) => {
+        return total + (
+          r.quantity_per_base_unit *
+          (r.wastage_factor || 1.0) *
+          r.current_price_per_unit *
+          quantity
+        );
+      }, 0);
+      return { cost, source: 'recipe', confidence: null };
+    }
+  } catch (recipeErr) {
+    logger.error(`Recipe calculation failed for ${menuItemId}:`, recipeErr.message);
+  }
+
+  // 3. Last resort: unit_price markup
+  return { cost: null, source: 'fallback', confidence: null };
+}
 
 class OrderService {
   async createOrder(customerId, orderData) {
@@ -91,12 +146,23 @@ class OrderService {
       throw AppError.badRequest('Order has no items');
     }
 
-    // Calculate costs per item using recipes (with ML fallback)
+    // Calculate costs per item — ML service first, recipe fallback, then unit_price markup
     let subtotal = 0;
-    let isMlPredicted = true;
+    let isMlPredicted = false;
+    let mlConfidenceSum = 0;
+    let mlCount = 0;
     const itemBreakdown = [];
 
+    const eventDate = order.event_date ? new Date(order.event_date).toISOString().slice(0, 10) : null;
+
     for (const item of orderItems) {
+      const { cost, source, confidence } = await predictItemCost(
+        item.menu_item_id,
+        item.quantity,
+        eventDate,
+        order.guest_count
+      );
+
       let itemCost;
       let usedMl = false;
 
@@ -163,6 +229,8 @@ class OrderService {
       });
     }
 
+    const avgConfidence = mlCount > 0 ? (mlConfidenceSum / mlCount).toFixed(2) : null;
+
     // Create quotation via billing service
     const quotation = await billingService.createQuotation({
       order_id: orderId,
@@ -192,6 +260,7 @@ class OrderService {
       quotation: quotation,
       item_breakdown: itemBreakdown,
       is_ml_predicted: isMlPredicted,
+      ml_confidence: avgConfidence ? parseFloat(avgConfidence) : null,
       status: updatedOrder.status
     };
   }
