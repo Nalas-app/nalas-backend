@@ -18,17 +18,17 @@ services:
       - key: ML_SERVICE_URL
         fromService:
           name: nalas-ml-service
-          type: pserv
+          type: web
           property: host
       - key: ML_API_KEY
-        generateValue: true
+        sync: false # Set manually in dashboard
       - key: JWT_SECRET
-        generateValue: true
+        sync: false # Set manually in dashboard
       - key: ALLOWED_ORIGINS
         value: "*"
 
   # 2. Python ML Costing Service (External Repo)
-  - type: pserv
+  - type: web
     name: nalas-ml-service
     repo: https://github.com/Nalas-app/Nalas_ML_Team.git
     branch: feat/production-readiness-jai
@@ -38,6 +38,8 @@ services:
     plan: free
     region: singapore
     envVars:
+      - key: PORT # Standard port for Render Web Services
+        value: 8001
       - key: DATABASE_URL
         sync: false
       - key: ML_API_KEY
