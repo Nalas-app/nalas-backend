@@ -18,7 +18,7 @@ services:
       - key: ML_SERVICE_URL
         fromService:
           name: nalas-ml-service
-          type: private
+          type: pservice
           property: host
       - key: ML_API_KEY
         generateValue: true
@@ -28,7 +28,7 @@ services:
         value: "*"
 
   # 2. Python ML Costing Service (External Repo)
-  - type: pvt
+  - type: pservice
     name: nalas-ml-service
     repo: https://github.com/Nalas-app/Nalas_ML_Team.git
     branch: feat/production-readiness-jai
