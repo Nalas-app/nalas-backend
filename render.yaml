@@ -31,7 +31,7 @@ services:
   - type: web
     name: nalas-ml-service
     repo: https://github.com/Nalas-app/Nalas_ML_Team.git
-    branch: feat/production-readiness-jai
+    branch: ML-Costing-Lead
     env: docker
     dockerContext: .
     dockerfilePath: Dockerfile
