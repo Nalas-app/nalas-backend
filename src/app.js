@@ -36,6 +36,16 @@ app.use((req, res, next) => {
   next();
 });
 
+// Root welcome
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Nalas Catering Production API is Live!',
+    documentation: '/api-docs (if enabled)',
+    health: '/health',
+    version: '1.0.0'
+  });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
