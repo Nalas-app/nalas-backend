@@ -28,7 +28,7 @@ services:
         value: "*"
 
   # 2. Python ML Costing Service (External Repo)
-  - type: pservice
+  - type: pserv
     name: nalas-ml-service
     repo: https://github.com/Nalas-app/Nalas_ML_Team.git
     branch: feat/production-readiness-jai
