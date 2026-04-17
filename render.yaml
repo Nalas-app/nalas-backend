@@ -41,9 +41,6 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: ML_API_KEY
-        fromService:
-          name: nalas-backend
-          type: web
-          property: envVar:ML_API_KEY
+        sync: false
       - key: ML_PORT
         value: 8001
