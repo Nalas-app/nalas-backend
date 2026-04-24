@@ -24,8 +24,8 @@ const errorMiddleware = (err, req, res, next) => {
     return res.status(500).json({
       success: false,
       error: {
-        code: 'INTERNAL_ERROR',
-        message: 'Something went wrong'
+        code: err.code || 'INTERNAL_ERROR',
+        message: err.message || 'Something went wrong'
       }
     });
   }
