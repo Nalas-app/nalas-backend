@@ -14,9 +14,11 @@ const poolConfig = process.env.DATABASE_URL
 
 const pool = new Pool({
   ...poolConfig,
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 5000, // Increased for cloud stability
+  max: 10, // Optimized for Supabase Free Tier
+  idleTimeoutMillis: 10000, // Close idle connections faster
+  connectionTimeoutMillis: 5000, 
+  ssl: { rejectUnauthorized: false }, // Ensure SSL stability in cloud
+  keepAlive: true, // Prevent pooler from killing active connections
 });
 
 pool.on('error', (err) => {
