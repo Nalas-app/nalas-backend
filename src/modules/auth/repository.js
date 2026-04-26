@@ -96,6 +96,42 @@ class AuthRepository {
     `;
     await db.query(query, [passwordHash, userId]);
   }
+  async getUserWithProfile(userId) {
+    const query = `
+      SELECT u.id, u.email, u.phone, u.role, u.is_active, u.created_at, p.full_name, p.avatar_url, p.bio
+      FROM users u
+      LEFT JOIN user_profiles p ON u.id = p.user_id
+      WHERE u.id = $1
+    `;
+    const result = await db.query(query, [userId]);
+    return result.rows[0] || null;
+  }
+
+  async updateProfile(userId, { fullName, avatarUrl, bio }) {
+    const query = `
+      UPDATE user_profiles
+      SET full_name = COALESCE($1, full_name),
+          avatar_url = COALESCE($2, avatar_url),
+          bio = COALESCE($3, bio),
+          updated_at = NOW()
+      WHERE user_id = $4
+      RETURNING *
+    `;
+    const result = await db.query(query, [fullName, avatarUrl, bio, userId]);
+    return result.rows[0];
+  }
+
+  async updateUser(userId, { phone }) {
+    const query = `
+      UPDATE users
+      SET phone = COALESCE($1, phone),
+          updated_at = NOW()
+      WHERE id = $2
+      RETURNING id, email, phone, role
+    `;
+    const result = await db.query(query, [phone, userId]);
+    return result.rows[0];
+  }
 }
 
 module.exports = new AuthRepository();

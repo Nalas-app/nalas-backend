@@ -153,6 +153,27 @@ class AuthService {
       { expiresIn: '24h' }
     );
   }
+
+  async getProfile(userId) {
+    const user = await authRepository.getUserWithProfile(userId);
+    if (!user) {
+      throw AppError.notFound('User not found');
+    }
+    return user;
+  }
+
+  async updateProfile(userId, data) {
+    const { fullName, avatarUrl, bio, phone } = data;
+    
+    if (phone) {
+      await authRepository.updateUser(userId, { phone });
+    }
+    
+    const profile = await authRepository.updateProfile(userId, { fullName, avatarUrl, bio });
+    const user = await authRepository.getUserWithProfile(userId);
+    
+    return user;
+  }
 }
 
 module.exports = new AuthService();

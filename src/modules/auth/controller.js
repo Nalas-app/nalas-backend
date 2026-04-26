@@ -81,6 +81,33 @@ class AuthController {
       next(error);
     }
   }
+
+  async getProfile(req, res, next) {
+    try {
+      const result = await authService.getProfile(req.user.userId);
+      
+      res.json({
+        success: true,
+        data: result
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateProfile(req, res, next) {
+    try {
+      const result = await authService.updateProfile(req.user.userId, req.body);
+      
+      res.json({
+        success: true,
+        data: result,
+        message: 'Profile updated successfuly'
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new AuthController();
