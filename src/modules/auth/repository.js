@@ -98,7 +98,7 @@ class AuthRepository {
   }
   async getUserWithProfile(userId) {
     const query = `
-      SELECT u.id, u.email, u.phone, u.role, u.is_active, u.created_at, p.full_name, p.avatar_url, p.bio
+      SELECT u.id, u.email, u.phone, u.role, u.is_active, u.created_at, p.full_name, p.avatar_url, p.bio, p.address
       FROM users u
       LEFT JOIN user_profiles p ON u.id = p.user_id
       WHERE u.id = $1
@@ -107,17 +107,18 @@ class AuthRepository {
     return result.rows[0] || null;
   }
 
-  async updateProfile(userId, { fullName, avatarUrl, bio }) {
+  async updateProfile(userId, { fullName, avatarUrl, bio, address }) {
     const query = `
       UPDATE user_profiles
       SET full_name = COALESCE($1, full_name),
           avatar_url = COALESCE($2, avatar_url),
           bio = COALESCE($3, bio),
+          address = COALESCE($4, address),
           updated_at = NOW()
-      WHERE user_id = $4
+      WHERE user_id = $5
       RETURNING *
     `;
-    const result = await db.query(query, [fullName, avatarUrl, bio, userId]);
+    const result = await db.query(query, [fullName, avatarUrl, bio, address, userId]);
     return result.rows[0];
   }
 

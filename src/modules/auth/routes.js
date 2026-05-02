@@ -21,5 +21,6 @@ router.post('/reset-password', validate(resetPasswordSchema), authController.res
 const { authenticate } = require('../../middlewares/auth.middleware');
 router.get('/profile', authenticate, authController.getProfile);
 router.put('/profile', authenticate, authController.updateProfile);
+router.get('/addresses', authenticate, authController.getAddresses);
 
 module.exports = router;

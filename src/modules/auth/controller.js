@@ -108,6 +108,21 @@ class AuthController {
       next(error);
     }
   }
+
+  async getAddresses(req, res, next) {
+    try {
+      const result = await authService.getProfile(req.user.userId);
+      
+      res.json({
+        success: true,
+        data: {
+          address: result.address || null
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new AuthController();
