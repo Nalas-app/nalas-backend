@@ -101,9 +101,17 @@ class MenuRepository {
 
   async findAllMenuItems(filters = {}, limit = 10, offset = 0) {
     let query = `
-      SELECT mi.*, mc.name as category_name 
+      SELECT
+        mi.*,
+        mc.name as category_name,
+        COALESCE(
+          SUM(r.quantity_per_base_unit * COALESCE(r.wastage_factor, 1.0) * i.current_price_per_unit),
+          0
+        ) as recipe_unit_cost
       FROM menu_items mi
       LEFT JOIN menu_categories mc ON mi.category_id = mc.id
+      LEFT JOIN recipes r ON mi.id = r.menu_item_id
+      LEFT JOIN ingredients i ON r.ingredient_id = i.id
       WHERE 1=1
     `;
     const params = [];
@@ -128,7 +136,7 @@ class MenuRepository {
       params.push(filters.is_customizable);
     }
 
-    query += ` ORDER BY mi.created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`;
+    query += ` GROUP BY mi.id, mc.name ORDER BY mi.created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`;
     params.push(limit, offset);
 
     const result = await db.query(query, params);
@@ -140,6 +148,11 @@ class MenuRepository {
     const params = [];
     let paramCount = 1;
 
+    if (data.category_id) {
+      updates.push(`category_id = $${paramCount}`);
+      params.push(data.category_id);
+      paramCount++;
+    }
     if (data.name) {
       updates.push(`name = $${paramCount}`);
       params.push(data.name);

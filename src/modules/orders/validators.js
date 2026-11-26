@@ -11,6 +11,7 @@ const createOrderSchema = Joi.object({
     Joi.object({
       menu_item_id: Joi.string().uuid().required(),
       quantity: Joi.number().min(0.5).required(),
+      unit_price: Joi.number().min(0),
       customizations: Joi.object().default({})
     })
   ).min(1).max(100).required()
@@ -27,6 +28,7 @@ const updateOrderSchema = Joi.object({
     Joi.object({
       menu_item_id: Joi.string().uuid().required(),
       quantity: Joi.number().min(0.5).required(),
+      unit_price: Joi.number().min(0),
       customizations: Joi.object().default({})
     })
   ).min(1).max(100)

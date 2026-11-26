@@ -15,8 +15,8 @@ const updateCategorySchema = Joi.object({
 const createMenuItemSchema = Joi.object({
   category_id: Joi.string().uuid().required(),
   name: Joi.string().min(2).max(255).required(),
-  description: Joi.string().max(500),
-  base_unit: Joi.string().valid('serving', 'kg', 'piece', 'plate', 'box').required(),
+  description: Joi.string().max(500).allow(''),
+  base_unit: Joi.string().valid('serving', 'kg', 'piece', 'plate', 'box', '1 portion').required(),
   min_quantity: Joi.number().min(0.5).default(1),
   image_url: Joi.string().uri().allow(''),
   is_customizable: Joi.boolean().default(false),
@@ -27,8 +27,8 @@ const createMenuItemSchema = Joi.object({
 const updateMenuItemSchema = Joi.object({
   category_id: Joi.string().uuid(),
   name: Joi.string().min(2).max(255),
-  description: Joi.string().max(500),
-  base_unit: Joi.string().valid('serving', 'kg', 'piece', 'plate', 'box'),
+  description: Joi.string().max(500).allow(''),
+  base_unit: Joi.string().valid('serving', 'kg', 'piece', 'plate', 'box', '1 portion'),
   min_quantity: Joi.number().min(0.5),
   image_url: Joi.string().uri().allow(''),
   is_customizable: Joi.boolean(),

@@ -90,7 +90,8 @@ class OrderController {
     try {
       const result = await orderService.generateQuotation(
         req.params.id,
-        req.user?.id || null
+        req.user?.id || null,
+        req.body || {}
       );
 
       res.json({
