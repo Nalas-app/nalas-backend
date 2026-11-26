@@ -7,8 +7,33 @@ const menuRepository = require('../menu/repository');
 const mlCostingRepository = require('../ml-costing/repository');
 const logger = require('../../shared/utils/logger');
 const mlClient = require('../../shared/utils/mlClient');
+const {
+  MAX_SANE_UNIT_COST,
+  toFiniteNumber,
+  roundCurrency,
+  computeRecipeUnitCost,
+  estimateDishUnitCost,
+  resolveDishUnitCost
+} = require('../../shared/utils/dishCost');
 
 class OrderService {
+  async _resolveItemCreationUnitPrice(menuItem, rawItemPrice) {
+    let recipe = [];
+    try {
+      recipe = await menuRepository.getRecipe(menuItem.id);
+    } catch (err) {
+      logger.warn(`Could not load recipe during order creation for item ${menuItem.id}: ${err.message}`);
+    }
+
+    const { unitCost } = resolveDishUnitCost({
+      item: menuItem,
+      recipeRows: recipe,
+      explicitRequestPrice: rawItemPrice,
+      ignoreLegacyPlaceholder: false
+    });
+    return unitCost;
+  }
+
   async createOrder(customerId, orderData) {
     // Validate order items exist and retrieve menu items
     const order = await orderRepository.createOrder(customerId, {
@@ -34,17 +59,15 @@ class OrderService {
         throw AppError.notFound(`Menu item not found: ${item.menu_item_id}`);
       }
 
-      if (item.quantity < menuItem.min_quantity) {
+      if (Number(item.quantity) < Number(menuItem.min_quantity)) {
         throw AppError.badRequest(
           `Minimum quantity for ${menuItem.name} is ${menuItem.min_quantity}. You requested ${item.quantity}.`
         );
       }
 
-      // Note: In production, you'd fetch menu item price here
-      // For now, we accept unit_price in the request (to be removed later)
-      const unitPrice = item.unit_price || 500; // Default placeholder
-      const itemTotal = item.quantity * unitPrice;
-      totalAmount += itemTotal;
+      const unitPrice = await this._resolveItemCreationUnitPrice(menuItem, item.unit_price);
+      const itemTotal = roundCurrency(Number(item.quantity) * unitPrice);
+      totalAmount = roundCurrency(totalAmount + itemTotal);
 
       const orderItem = await orderRepository.createOrderItem(
         order.id,
@@ -84,7 +107,7 @@ class OrderService {
   }
 
   // ===== QUOTATION GENERATION (Order → Billing integration) =====
-  async generateQuotation(orderId, userId) {
+  async generateQuotation(orderId, userId, options = {}) {
     const order = await orderRepository.findOrderById(orderId);
 
     if (!order) {
@@ -104,8 +127,8 @@ class OrderService {
       throw AppError.badRequest('Order has no items');
     }
 
-    // Calculate costs per item — Recipe-based first (deterministic, auditable).
-    // ML prediction is only used as a last resort when an item has no recipe mapped.
+    // Calculate raw dish/ingredient costs per item — Recipe-based first (deterministic, auditable),
+    // then ML raw ingredientCost (without double-counting ML labor/overhead), then per-dish unit cost.
     let subtotal = 0;
     let isMlPredicted = false;
     let mlConfidenceSum = 0;
@@ -114,24 +137,20 @@ class OrderService {
     let mlFallbackReason = null;
 
     for (const item of orderItems) {
-      let itemCost;
-      let usedMl = false;
+      const qty = toFiniteNumber(item.quantity, 0);
+      let unitCost = 0;
+      let itemCost = 0;
       let predictionData = null;
       let method = 'recipe_calculation';
 
       // 1. PRIMARY: Recipe-based calculation (deterministic, auditable, legally defensible)
       try {
         const recipe = await menuRepository.getRecipe(item.menu_item_id);
+        const recipeUnitCost = computeRecipeUnitCost(recipe);
 
-        if (recipe && recipe.length > 0) {
-          itemCost = recipe.reduce((total, r) => {
-            return total + (
-              r.quantity_per_base_unit *
-              (r.wastage_factor || 1.0) *
-              r.current_price_per_unit *
-              item.quantity
-            );
-          }, 0);
+        if (recipeUnitCost > 0) {
+          unitCost = recipeUnitCost;
+          itemCost = roundCurrency(recipeUnitCost * qty);
           method = 'recipe_calculation';
           logger.info(`Recipe calculation used for item ${item.menu_item_id}: cost=${itemCost}`);
         }
@@ -140,22 +159,32 @@ class OrderService {
       }
 
       // 2. FALLBACK: ML prediction — only when recipe data is missing or returned zero
-      if (itemCost == null || itemCost === 0) {
-        logger.warn(`No recipe data for item ${item.menu_item_id}, attempting ML prediction as fallback`);
+      if (itemCost <= 0) {
+        logger.warn(`No priced recipe data for item ${item.menu_item_id}, attempting ML prediction as fallback`);
         try {
           predictionData = await mlClient.predictCost({
             menuItemId: item.menu_item_id,
-            quantity: item.quantity,
+            quantity: qty,
             eventDate: order.event_date,
             guestCount: order.guest_count
           });
 
-          if (predictionData && predictionData.totalCost) {
-            itemCost = predictionData.totalCost;
-            usedMl = true;
+          const mlRawIngredientCost = toFiniteNumber(predictionData?.ingredientCost, 0);
+          const mlPerUnit = qty > 0 ? mlRawIngredientCost / qty : 0;
+          const maxReasonableForDish = Math.min(MAX_SANE_UNIT_COST, estimateDishUnitCost(item) * 5);
+          const isSaneMlCost =
+            mlRawIngredientCost > 0 &&
+            mlPerUnit > 0 &&
+            (predictionData?.method === 'rule_based'
+              ? mlPerUnit <= MAX_SANE_UNIT_COST
+              : mlPerUnit <= maxReasonableForDish);
+
+          if (predictionData && isSaneMlCost) {
+            unitCost = roundCurrency(mlPerUnit);
+            itemCost = roundCurrency(mlRawIngredientCost);
             isMlPredicted = true;
             mlCount++;
-            mlConfidenceSum += (predictionData.confidence || 0);
+            mlConfidenceSum += toFiniteNumber(predictionData.confidence, 0);
             method = 'ml_prediction';
 
             // Log ML prediction to DB for evaluation
@@ -169,8 +198,8 @@ class OrderService {
               prediction_confidence: predictionData.confidence
             });
           } else if (predictionData) {
-            mlFallbackReason = `ML returned totalCost=${predictionData.totalCost} (falsy) — ingredient prices may be 0 in the database`;
-            logger.warn(`ML returned zero/null cost for item ${item.menu_item_id}:`, predictionData);
+            mlFallbackReason = `ML returned unusable ingredientCost=${predictionData.ingredientCost} for item ${item.menu_item_id}`;
+            logger.warn(`ML returned zero/outlier cost for item ${item.menu_item_id}:`, predictionData);
           }
         } catch (err) {
           const status = err.response?.status;
@@ -182,18 +211,33 @@ class OrderService {
         }
       }
 
-      // 3. LAST RESORT: static markup (if both recipe and ML failed)
-      if (itemCost == null || itemCost === 0) {
-        itemCost = (item.unit_price || 500) * item.quantity * 1.3;
-        method = 'static_markup';
-        logger.warn(`Static markup applied for item ${item.menu_item_id}: cost=${itemCost}`);
+      // 3. DISH COST FALLBACK: real item unit_price or category-based dish estimate (never 0)
+      if (itemCost <= 0) {
+        const resolved = resolveDishUnitCost({
+          item,
+          recipeRows: [],
+          ignoreLegacyPlaceholder: true
+        });
+        unitCost = resolved.unitCost;
+        itemCost = roundCurrency(unitCost * qty);
+        method = resolved.method;
+        logger.info(`Dish cost fallback (${method}) applied for item ${item.menu_item_id}: unit=${unitCost}, total=${itemCost}`);
       }
 
-      subtotal += itemCost;
+      if (item.id && toFiniteNumber(item.unit_price, 0) !== unitCost) {
+        try {
+          await orderRepository.updateOrderItemPricing(item.id, unitCost, itemCost);
+        } catch (updateErr) {
+          logger.warn(`Failed to sync unit_price on order_item ${item.id}: ${updateErr.message}`);
+        }
+      }
+
+      subtotal = roundCurrency(subtotal + itemCost);
       itemBreakdown.push({
         menu_item_id: item.menu_item_id,
         name: item.name,
-        quantity: item.quantity,
+        quantity: qty,
+        unit_cost: unitCost,
         calculated_cost: itemCost,
         method
       });
@@ -201,15 +245,13 @@ class OrderService {
 
     const avgConfidence = mlCount > 0 ? (mlConfidenceSum / mlCount).toFixed(2) : null;
 
-    // Create quotation via billing service
-    // If ML was used, pass the ML-computed ingredient cost directly so the
-    // grand total is actually driven by ML prediction (not re-derived from recipes)
+    // Create quotation via billing service — ALWAYS pass the computed dish/ingredient cost
+    // so orders without recipes or ML coverage never collapse to 0 dish cost.
     const quotation = await billingService.createQuotation({
+      ...options,
       order_id: orderId,
-      labor_cost_per_guest: 500,
-      overhead_percentage: 10,
-      tax_percentage: 5,
-      ...(isMlPredicted && { ml_ingredient_cost: subtotal })
+      dish_cost: subtotal,
+      ml_ingredient_cost: subtotal
     });
 
     // Update order status to 'quoted'
@@ -406,8 +448,9 @@ class OrderService {
       // Table may not exist yet; don't fail the request
     }
 
-    // Fetch invoice if exists (non-critical)
+    // Fetch invoice and quotation if they exist (non-critical)
     let invoice = null;
+    let quotation = null;
     try {
       const billingRepository = require('../billing/repository');
       const inv = await billingRepository.findInvoiceByOrderId(orderId);
@@ -421,9 +464,25 @@ class OrderService {
           due_date: inv.due_date
         };
       }
+      const quot = await billingRepository.findQuotationByOrderId(orderId);
+      if (quot) {
+        quotation = {
+          id: quot.id,
+          quotation_number: quot.quotation_number,
+          subtotal: quot.subtotal,
+          labor_cost: quot.labor_cost,
+          overhead_cost: quot.overhead_cost,
+          discount: quot.discount || 0,
+          tax_amount: quot.tax_amount,
+          grand_total: quot.grand_total,
+          valid_until: quot.valid_until
+        };
+      }
     } catch (err) {
       // Ignore if billing repository fails
     }
+
+    const effectiveTotal = invoice?.total_amount ?? quotation?.grand_total ?? order.total_amount;
 
     return {
       id: order.id,
@@ -434,9 +493,10 @@ class OrderService {
       guest_count: order.guest_count,
       venue_address: order.venue_address,
       status: order.status,
-      total_amount: order.total_amount,
-      advance_paid: order.advance_paid,
+      total_amount: effectiveTotal,
+      advance_paid: invoice ? (invoice.paid_amount || 0) : order.advance_paid,
       invoice,
+      quotation,
       items,
       status_history: statusHistory,
       created_at: order.created_at,
@@ -455,10 +515,13 @@ class OrderService {
           id: order.id,
           customer_id: order.customer_id,
           event_date: order.event_date,
+          event_time: order.event_time,
           event_type: order.event_type,
           guest_count: order.guest_count,
+          venue_address: order.venue_address,
           status: order.status,
           total_amount: order.total_amount,
+          advance_paid: order.advance_paid || 0,
           item_count: items.length,
           created_at: order.created_at
         };
@@ -480,7 +543,38 @@ class OrderService {
       throw AppError.badRequest('Can only update draft orders');
     }
 
-    const updatedOrder = await orderRepository.updateOrder(orderId, updateData);
+    let updatedOrder = await orderRepository.updateOrder(orderId, updateData);
+
+    if (Array.isArray(updateData.order_items) && updateData.order_items.length > 0) {
+      await orderRepository.deleteOrderItemsByOrderId(orderId);
+      let totalAmount = 0;
+
+      for (const item of updateData.order_items) {
+        const menuItem = await menuRepository.findMenuItemById(item.menu_item_id);
+        if (!menuItem) {
+          throw AppError.notFound(`Menu item not found: ${item.menu_item_id}`);
+        }
+        if (Number(item.quantity) < Number(menuItem.min_quantity)) {
+          throw AppError.badRequest(
+            `Minimum quantity for ${menuItem.name} is ${menuItem.min_quantity}. You requested ${item.quantity}.`
+          );
+        }
+
+        const unitPrice = await this._resolveItemCreationUnitPrice(menuItem, item.unit_price);
+        const itemTotal = roundCurrency(Number(item.quantity) * unitPrice);
+        totalAmount = roundCurrency(totalAmount + itemTotal);
+
+        await orderRepository.createOrderItem(
+          orderId,
+          item.menu_item_id,
+          item.quantity,
+          unitPrice,
+          item.customizations
+        );
+      }
+
+      updatedOrder = await orderRepository.updateTotalAmount(orderId, totalAmount);
+    }
 
     const items = await orderRepository.getOrderItems(orderId);
 
@@ -615,17 +709,53 @@ class OrderService {
   async getCustomerOrders(customerId, page = 1, limit = 10) {
     const offset = (page - 1) * limit;
     const orders = await orderRepository.getOrderByCustomerId(customerId, limit, offset);
+    const billingRepository = require('../billing/repository');
 
     const ordersWithItems = await Promise.all(
       orders.map(async (order) => {
         const items = await orderRepository.getOrderItems(order.id);
+        let invoice = null;
+        let quotation = null;
+        try {
+          const inv = await billingRepository.findInvoiceByOrderId(order.id);
+          if (inv) {
+            invoice = {
+              id: inv.id,
+              invoice_number: inv.invoice_number,
+              total_amount: inv.total_amount,
+              paid_amount: inv.paid_amount || 0,
+              payment_status: inv.payment_status,
+              due_date: inv.due_date
+            };
+          }
+          const quot = await billingRepository.findQuotationByOrderId(order.id);
+          if (quot) {
+            quotation = {
+              id: quot.id,
+              quotation_number: quot.quotation_number,
+              grand_total: quot.grand_total,
+              valid_until: quot.valid_until
+            };
+          }
+        } catch (err) {
+          // Ignore non-critical billing lookup error
+        }
+
+        const effectiveTotal = invoice?.total_amount ?? quotation?.grand_total ?? order.total_amount;
+
         return {
           id: order.id,
           event_date: order.event_date,
+          event_time: order.event_time,
           event_type: order.event_type,
           guest_count: order.guest_count,
+          venue_address: order.venue_address,
           status: order.status,
-          total_amount: order.total_amount,
+          total_amount: effectiveTotal,
+          advance_paid: invoice ? (invoice.paid_amount || 0) : (order.advance_paid || 0),
+          invoice,
+          quotation,
+          items,
           item_count: items.length,
           created_at: order.created_at
         };

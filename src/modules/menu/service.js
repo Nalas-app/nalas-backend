@@ -1,6 +1,13 @@
 const AppError = require('../../shared/errors/AppError');
 const menuRepository = require('./repository');
 const stockRepository = require('../stock/repository');
+const {
+  MAX_SANE_UNIT_COST,
+  toFiniteNumber,
+  roundCurrency,
+  computeRecipeUnitCost,
+  estimateDishUnitCost
+} = require('../../shared/utils/dishCost');
 
 class MenuService {
   // ===== CATEGORIES =====
@@ -89,6 +96,10 @@ class MenuService {
       throw AppError.internal('Failed to create menu item');
     }
 
+    const pricePerUnit = toFiniteNumber(data.base_price, 0) > 0
+      ? roundCurrency(data.base_price)
+      : estimateDishUnitCost({ name: menuItem.name, category_name: category.name });
+
     return {
       id: menuItem.id,
       category_id: menuItem.category_id,
@@ -97,6 +108,7 @@ class MenuService {
       description: menuItem.description,
       base_unit: menuItem.base_unit,
       min_quantity: menuItem.min_quantity,
+      price_per_unit: pricePerUnit,
       image_url: menuItem.image_url,
       is_customizable: menuItem.is_customizable,
       is_active: menuItem.is_active,
@@ -112,6 +124,10 @@ class MenuService {
     }
 
     const recipe = await menuRepository.getRecipe(itemId);
+    const recipeUnitCost = computeRecipeUnitCost(recipe);
+    const pricePerUnit = recipeUnitCost > 0
+      ? recipeUnitCost
+      : estimateDishUnitCost(menuItem);
 
     return {
       id: menuItem.id,
@@ -121,6 +137,7 @@ class MenuService {
       description: menuItem.description,
       base_unit: menuItem.base_unit,
       min_quantity: menuItem.min_quantity,
+      price_per_unit: pricePerUnit,
       image_url: menuItem.image_url,
       is_customizable: menuItem.is_customizable,
       is_active: menuItem.is_active,
@@ -140,17 +157,29 @@ class MenuService {
     const offset = (page - 1) * limit;
     const items = await menuRepository.findAllMenuItems(filters, limit, offset);
 
-    return items.map(item => ({
-      id: item.id,
-      category_id: item.category_id,
-      category_name: item.category_name,
-      name: item.name,
-      description: item.description,
-      base_unit: item.base_unit,
-      min_quantity: item.min_quantity,
-      is_customizable: item.is_customizable,
-      is_active: item.is_active
-    }));
+    return items.map(item => {
+      const rawRecipeCost = toFiniteNumber(item.recipe_unit_cost, 0);
+      const validRecipeCost = rawRecipeCost > 0 && rawRecipeCost <= MAX_SANE_UNIT_COST
+        ? roundCurrency(rawRecipeCost)
+        : 0;
+      const pricePerUnit = validRecipeCost > 0
+        ? validRecipeCost
+        : estimateDishUnitCost(item);
+
+      return {
+        id: item.id,
+        category_id: item.category_id,
+        category_name: item.category_name,
+        name: item.name,
+        description: item.description,
+        base_unit: item.base_unit,
+        min_quantity: item.min_quantity,
+        price_per_unit: pricePerUnit,
+        image_url: item.image_url,
+        is_customizable: item.is_customizable,
+        is_active: item.is_active
+      };
+    });
   }
 
   async updateMenuItem(itemId, data) {

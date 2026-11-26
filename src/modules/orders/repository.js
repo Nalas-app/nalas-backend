@@ -66,6 +66,11 @@ class OrderRepository {
       params.push(data.event_time);
       paramCount++;
     }
+    if (data.event_type) {
+      updates.push(`event_type = $${paramCount}`);
+      params.push(data.event_type);
+      paramCount++;
+    }
     if (data.guest_count) {
       updates.push(`guest_count = $${paramCount}`);
       params.push(data.guest_count);
@@ -125,12 +130,30 @@ class OrderRepository {
 
   async getOrderItems(orderId) {
     const query = `
-      SELECT oi.*, mi.name, mi.description FROM order_items oi
+      SELECT oi.*, mi.name, mi.description, mi.base_unit, mc.name as category_name
+      FROM order_items oi
       LEFT JOIN menu_items mi ON oi.menu_item_id = mi.id
+      LEFT JOIN menu_categories mc ON mi.category_id = mc.id
       WHERE oi.order_id = $1
     `;
     const result = await db.query(query, [orderId]);
     return result.rows;
+  }
+
+  async updateOrderItemPricing(orderItemId, unitPrice, totalPrice) {
+    const query = `
+      UPDATE order_items
+      SET unit_price = $1, total_price = $2
+      WHERE id = $3
+      RETURNING *
+    `;
+    const result = await db.query(query, [unitPrice, totalPrice, orderItemId]);
+    return result.rows[0] || null;
+  }
+
+  async deleteOrderItemsByOrderId(orderId) {
+    const query = 'DELETE FROM order_items WHERE order_id = $1';
+    await db.query(query, [orderId]);
   }
 
   async updateTotalAmount(orderId, totalAmount) {
@@ -141,6 +164,17 @@ class OrderRepository {
       RETURNING *
     `;
     const result = await db.query(query, [totalAmount, orderId]);
+    return result.rows[0];
+  }
+
+  async updateAdvancePaid(orderId, advancePaid) {
+    const query = `
+      UPDATE orders
+      SET advance_paid = $1, updated_at = CURRENT_TIMESTAMP
+      WHERE id = $2
+      RETURNING *
+    `;
+    const result = await db.query(query, [advancePaid, orderId]);
     return result.rows[0];
   }
 

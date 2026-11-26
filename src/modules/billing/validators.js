@@ -4,10 +4,13 @@ const createQuotationSchema = Joi.object({
   order_id:                   Joi.string().uuid().required(),
   apply_gst:                  Joi.boolean().default(false),
   gst_percentage:             Joi.number().min(0).max(28),
+  tax_percentage:             Joi.number().min(0).max(28),
   discount:                   Joi.number().min(0).default(0),
+  dish_cost:                  Joi.number().min(0),
   ml_ingredient_cost:         Joi.number().min(0),
   // Per-order overrides (optional — defaults come from app_settings)
   labour_cost_per_guest:      Joi.number().min(0),
+  labor_cost_per_guest:       Joi.number().min(0),
   lpg_cost_per_guest:         Joi.number().min(0),
   transport_flat:             Joi.number().min(0),
   leaf_cost_per_guest:        Joi.number().min(0),
